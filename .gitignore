@@ -1,0 +1,8 @@
+# npm packages
+node_modules
+
+# ignore bundle
+/react-client/dist/bundle.js
+
+# ignore API keys
+config.js

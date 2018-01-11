@@ -16,6 +16,7 @@ class App extends Component {
     this.state = { open: false };     
   }
 
+  // TODO refactor below to utilize react router so that when user clicks on menu, appropriate view is rendered
 
   render() {
     return (

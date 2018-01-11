@@ -9,6 +9,13 @@
   background-color: #F6BD60
 }
 
+.addComix {
+  margin: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 auto;
+}
+
 .comix-table {
   display: flex;
   flex-flow: column nowrap;

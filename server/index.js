@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../db');
+const comimcsApi = require('../react/src/config/config');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 9000;
@@ -10,14 +12,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + '/../react/dist'));
 
-// sample route
-app.get('/api/sample', (req, res) => {
-	db.getAll((error, results) => {
-		if (error) throw error; 
-		res.send(results)
-	})
+app.use('/', require('./routes'));
+
+
+
+// const getIssuesAscending = comimcsApi.URL + '/issues/?api_key=' + comimcsApi.API_KEY + '&sort=store_date:asc&format=json';
+
+// app.get(getIssuesAscending, (req, res) => {
+// 	res.send();
+// })
+
+app.use(function (req, res, next) {
+  res.status(404).redirect('https://http.cat/404')
 })
 
 app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+	console.log(`listening on port ${PORT}`);
 });

@@ -1,13 +1,4 @@
-const mysql = require('mysql');
-const config = require('./config.js');
-const c = mysql.createConnection(config);
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://test:test@ds249707.mlab.com:49707/comicscoll');
 
-const getAll = function(cb) {
-	// syntax for this is (SQL, response)
-  c.query(`SELECT * FROM sample`, cb)
-};
-
-module.exports = {
-  getAll,
-  // add more (comma delimited) exports here
-};
+exports.db = mongoose;

@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS comicsTrade;
+DROP DATABASE IF EXISTS comicsCollection;
 
 CREATE DATABASE comicsCollection;
 

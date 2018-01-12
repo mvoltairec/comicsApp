@@ -32,7 +32,6 @@ class NavigationBar extends Component {
                       containerElement={<Link to="/" />}
                       onClick={() => {
                         console.log('going home')
-                        alert('going home!')
                         this.handleToggle()
                       }}
                       />

@@ -16,7 +16,44 @@ injectTapEventPlugin();
 class App extends Component {
   constructor(props) {
     super(props); 
+    this.state = {
+      comics: [],
+      filterParams: {} // params to filter the comics array by
+    }
   }
+
+
+  // will be called in component did mount for /Home so that on get req to home, all comics in db are served 
+  getAllComics() {
+
+  }
+
+  // will pass filtered comics in the app state down to /Home as comics props
+  getFilteredComics() {
+
+  }
+
+  // will be called in handleFormSubmit
+  addComic() {
+    // sends a post to the server  of the comic
+  }
+  
+  // listening for button click signalling that comics should be pushed
+  handleFormSubmit() {
+
+  }
+
+  // update
+  editComic() {
+    // put request to server
+  }
+
+  // removes comic
+  removeComic() {
+    // delete request to server
+  }
+
+  
 
   render () {
     return (

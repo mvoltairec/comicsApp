@@ -5889,6 +5889,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// TODO: If there's time, modify the publisher to be  aselect drop down so that a user can select the publisher
+// and then add the option to select other which will bring up a drop down to allow a user to add a publisher that is not already on the list
+
 var ComicsAdd = function (_Component) {
   _inherits(ComicsAdd, _Component);
 
@@ -5927,8 +5930,17 @@ var ComicsAdd = function (_Component) {
       console.log('current state is', this.state.formValues);
     }
   }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      console.log('state when pressing submit button is', this.state);
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      console.log('where are props for comic add', this.props);
       return _react2.default.createElement(
         'div',
         null,
@@ -5949,6 +5961,13 @@ var ComicsAdd = function (_Component) {
             _react2.default.createElement(
               'fieldset',
               null,
+              _react2.default.createElement(_TextField2.default, {
+                name: 'publisher',
+                hintText: 'e.g. Marvel, DC, Image, ...',
+                floatingLabelText: 'Publisher',
+                onChange: this.handleFormChange.bind(this),
+                fullWidth: true
+              }),
               _react2.default.createElement('br', null),
               _react2.default.createElement(_TextField2.default, {
                 name: 'title',
@@ -5992,7 +6011,10 @@ var ComicsAdd = function (_Component) {
                 fullWidth: true
               }),
               _react2.default.createElement('br', null),
-              _react2.default.createElement('br', null)
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(_RaisedButton2.default, { label: 'submit', onClick: function onClick(e) {
+                  return _this2.handleSubmit(e);
+                } })
             )
           )
         )
@@ -6336,15 +6358,18 @@ var App = function (_Component) {
 
   }, {
     key: 'addComic',
-    value: function addComic() {}
-    // sends a post to the server  of the comic
-
+    value: function addComic(comic) {
+      // sends a post to the server  of the comic
+      console.log('whats the comic', comic);
+    }
 
     // listening for button click signalling that comics should be pushed
 
   }, {
     key: 'handleFormSubmit',
-    value: function handleFormSubmit() {}
+    value: function handleFormSubmit(e) {
+      console.log('this handle form submit was called from the app component');
+    }
 
     // update
 
@@ -6364,6 +6389,8 @@ var App = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'main',
         null,
@@ -6371,7 +6398,9 @@ var App = function (_Component) {
           _reactRouterDom.Switch,
           null,
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/comics/add', component: _ComicsAdd2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/comics/add', render: function render() {
+              return _react2.default.createElement(_ComicsAdd2.default, { handleFormSubmit: _this2.handleFormSubmit.bind(_this2) });
+            }, addComic: this.addComic.bind(this) }),
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/comics/edit', component: _ComicsEdit2.default })
         )
       );

@@ -26,7 +26,7 @@ class App extends Component {
   // will be called in component did mount for /Home so that on get req to home, all comics in db are served 
   getAllComics() {
 
-  }
+  } 
 
   // will pass filtered comics in the app state down to /Home as comics props
   getFilteredComics() {
@@ -34,13 +34,14 @@ class App extends Component {
   }
 
   // will be called in handleFormSubmit
-  addComic() {
+  addComic(comic) {
     // sends a post to the server  of the comic
+    console.log('whats the comic', comic);
   }
   
   // listening for button click signalling that comics should be pushed
-  handleFormSubmit() {
-
+  handleFormSubmit(e) {
+    console.log('this handle form submit was called from the app component');
   }
 
   // update
@@ -60,7 +61,7 @@ class App extends Component {
       <main>
         <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/comics/add" component={ComicsAdd}/>
+          <Route exact path="/comics/add" render={()=><ComicsAdd handleFormSubmit={this.handleFormSubmit.bind(this)}/>} addComic={this.addComic.bind(this)}/>
           <Route exact path="/comics/edit" component={ComicsEdit}/>   
         </Switch>
       </main>

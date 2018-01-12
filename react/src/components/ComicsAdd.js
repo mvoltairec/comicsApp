@@ -5,6 +5,9 @@ import SelectField from 'material-ui/SelectField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {orange500, blue500} from 'material-ui/styles/colors';
 
+// TODO: If there's time, modify the publisher to be  aselect drop down so that a user can select the publisher
+// and then add the option to select other which will bring up a drop down to allow a user to add a publisher that is not already on the list
+
 class ComicsAdd extends Component {
   constructor(props) {
     super(props);
@@ -35,8 +38,15 @@ handleFormChange(e) {
   console.log('current state is', this.state.formValues);
 }
 
+handleSubmit(e) {
+  e.preventDefault();
+  console.log('state when pressing submit button is', this.state)
+  
+}
+
 
   render() {
+    console.log('where are props for comic add', this.props)
     return (
       <div>
         <NavigationBar />
@@ -46,13 +56,13 @@ handleFormChange(e) {
           <br/>
           <form>
             <fieldset>
-              {/* <TextField
+              <TextField
                 name="publisher"
                 hintText="e.g. Marvel, DC, Image, ..."
                 floatingLabelText="Publisher"
                 onChange={this.handleFormChange.bind(this)}
                 fullWidth={true}
-              /> */}
+              />
 
               <br/>
               <TextField
@@ -98,6 +108,7 @@ handleFormChange(e) {
                 />
                 <br/>
                 <br/>
+                <RaisedButton label="submit" onClick={e =>this.handleSubmit(e)}/> 
                 </fieldset>
               </form>
         </div>

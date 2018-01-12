@@ -41,7 +41,8 @@ handleFormChange(e) {
 handleSubmit(e) {
   e.preventDefault();
   console.log('state when pressing submit button is', this.state)
-  
+  let comic = this.state.formValues;
+  this.props.addComic(comic);
 }
 
 

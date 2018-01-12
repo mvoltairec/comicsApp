@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Switch, Route, HashRouter, } from 'react-router-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import axios from 'axios';
 
 // My views
 import Home from './components/Home';
@@ -20,6 +21,9 @@ class App extends Component {
       comics: [],
       filterParams: {} // params to filter the comics array by
     }
+    this.addComic = this.addComic.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+
   }
 
 
@@ -37,6 +41,12 @@ class App extends Component {
   addComic(comic) {
     // sends a post to the server  of the comic
     console.log('whats the comic', comic);
+    // let comics = this.state.comics.slice();
+    // comics.push(comic);
+    axios.post('/comics/add', comic)
+      .then(response => {
+        console.log('the server responded with', response)
+      })
   }
   
   // listening for button click signalling that comics should be pushed
@@ -61,7 +71,7 @@ class App extends Component {
       <main>
         <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/comics/add" render={()=><ComicsAdd handleFormSubmit={this.handleFormSubmit.bind(this)}/>} addComic={this.addComic.bind(this)}/>
+          <Route exact path="/comics/add" render={()=><ComicsAdd addComic={this.addComic} handleFormSubmit={this.handleFormSubmit}/>} />
           <Route exact path="/comics/edit" component={ComicsEdit}/>   
         </Switch>
       </main>

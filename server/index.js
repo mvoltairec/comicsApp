@@ -1,8 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('../db');
+const db = require('../db/models/comic');
 const comimcsApi = require('../react/src/config/config');
-const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 9000;

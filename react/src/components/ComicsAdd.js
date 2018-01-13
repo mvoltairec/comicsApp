@@ -3,10 +3,13 @@ import NavigationBar from './NavigationBar';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import RaisedButton from 'material-ui/RaisedButton';
+import SelectFieldExampleSimple from './PublisherDropDown';
 import {orange500, blue500} from 'material-ui/styles/colors';
 
 // TODO: If there's time, modify the publisher to be  aselect drop down so that a user can select the publisher
 // and then add the option to select other which will bring up a drop down to allow a user to add a publisher that is not already on the list
+
+
 
 class ComicsAdd extends Component {
   constructor(props) {
@@ -22,9 +25,12 @@ class ComicsAdd extends Component {
       }
     }
   }
+  
+  // TODO: form validation to make the publisher, and title required, also throw an error if entered publish
+  // Date is not of the form MM-YYYY (so that I can transform it into a date using moment, will help with being able to sort)
+  
 
-// TODO: form validation to make the publisher, and title required, also throw an error if entered publish
-// Date is not of the form MM-YYYY (so that I can transform it into a date using moment, will help with being able to sort)
+
 
 handleFormChange(e) {
   e.preventDefault();
@@ -66,6 +72,7 @@ handleSubmit(e) {
               />
 
               <br/>
+              <SelectFieldExampleSimple />
               <TextField
                 name="title"
                 hintText="e.g. Batman"

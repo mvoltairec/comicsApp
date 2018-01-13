@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import NavigationBar from './NavigationBar';
 import ComicsList from './ComicsList';
+import TableExampleSimple from './TableExampleSimple';
 
 class Home extends Component {
   constructor() {
@@ -17,7 +18,8 @@ class Home extends Component {
     return (
         <div className='wrapper'>
           <NavigationBar />
-          <ComicsList />
+          {/* <ComicsList /> */}
+          <TableExampleSimple />
         </div>
     )
   }

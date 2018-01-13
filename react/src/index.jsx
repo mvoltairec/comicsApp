@@ -19,13 +19,37 @@ class App extends Component {
     super(props); 
     this.state = {
       comics: [],
-      filterParams: {} // params to filter the comics array by
+      filterParams: {},
+      formValues: {
+        publisher: '',
+        title: '',
+        volumeNumber: 1,
+        issueNumber: 1,
+        releaseDate: '', /*add this in later if I get past mvp to allow sorting by year */
+        notes: ''
+      },
+      publisherParams: {
+        value: 0,
+        primaryText: 'Marvel',
+        publishers: ['Marvel', 'DC Comics', 'Image', 'IDW', 'Dark Horse Comics', 'Valiant', 'Vertigo', 'Shonen Jump', 'Wild Storm', 'Other']
+      }
+
     }
+    this.addNewPublisher = this.addNewPublisher.bind(this);
+    this.handlePublisherSelect = this.handlePublisherSelect.bind(this);
     this.addComic = this.addComic.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
 
   }
 
+  addNewPublisher() {
+    
+  }
+
+  // will update the publisherParams 
+  handlePublisherSelect(event, value) {
+
+  }
 
   // will be called in component did mount for /Home so that on get req to home, all comics in db are served 
   getAllComics() {
@@ -37,8 +61,10 @@ class App extends Component {
 
   }
 
+  //TODO: refactor addcomic so that it takes in comic and adds publisher value 
   // will be called in handleFormSubmit
   addComic(comic) {
+
     // sends a post to the server  of the comic
     console.log('whats the comic', comic);
     // let comics = this.state.comics.slice();
@@ -46,7 +72,7 @@ class App extends Component {
     axios.post('/comics/add', comic)
       .then(response => {
         console.log('the server responded with', response)
-      })
+      }) // want the server to redirect to home 
   }
   
   // listening for button click signalling that comics should be pushed

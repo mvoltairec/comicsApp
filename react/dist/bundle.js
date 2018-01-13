@@ -10896,32 +10896,51 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var PublisherDropDown = function (_Component) {
   _inherits(PublisherDropDown, _Component);
 
-  function PublisherDropDown() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function PublisherDropDown(props) {
     _classCallCheck(this, PublisherDropDown);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (PublisherDropDown.__proto__ || Object.getPrototypeOf(PublisherDropDown)).call(this, props));
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PublisherDropDown.__proto__ || Object.getPrototypeOf(PublisherDropDown)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      value: 0,
-      primaryText: 'Marvel',
-      publishers: ['Marvel', 'DC Comics', 'Image', 'IDW', 'Dark Horse Comics', 'Valiant', 'Vertigo', 'Shonen Jump', 'Wild Storm', 'Other']
-    }, _this.handleChange = function (event, value) {
-      return _this.setState({ value: value, primaryText: _this.state.publishers[value] }, function () {
-        console.log('state after selecting value is now', _this.state);
-      });
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    _this.state = {
+      publisherParams: {
+        value: 0,
+        primaryText: 'Marvel',
+        publishers: ['Marvel', 'DC Comics', 'Image', 'IDW', 'Dark Horse Comics', 'Valiant', 'Vertigo', 'Shonen Jump', 'Wild Storm', 'Other']
+      }
+    };
+    _this.handlePublisherSelect = _this.handlePublisherSelect.bind(_this);
+    return _this;
   }
 
   _createClass(PublisherDropDown, [{
+    key: 'addNewPublisher',
+    value: function addNewPublisher() {
+      // should be called in handleSelect change when other is selected
+    }
+  }, {
+    key: 'handlePublisherSelect',
+    value: function handlePublisherSelect(event, value) {
+      var _this2 = this;
+
+      // event.preventDefault();
+      console.log('what is the state', this.state);
+      // let publisherParams = this.state;
+      // let publisherParams = Object.assign({}, this.state.publisherParams); //not modifying the state directly, making a copy
+      var publisherParams = this.state.publisherParams;
+      publisherParams.value = value;
+      publisherParams.primaryText = publisherParams.publishers[value];
+      this.setState({ publisherParams: publisherParams });
+      console.log('the publisherParams copy', publisherParams, function () {
+        console.log('state after selecting value is now', _this2.state);
+      });
+    }
+
+    // handleChange = (event, value) => this.setState({value: value, primaryText: this.state.publishers[value]}, () => { console.log('state after selecting value is now', this.state)});
+
+  }, {
     key: 'render',
     value: function render() {
-      console.log('selected was', this.state);
+      console.log('the state when rendering', this.state);
       return _react2.default.createElement(
         'div',
         null,
@@ -10929,10 +10948,10 @@ var PublisherDropDown = function (_Component) {
           _SelectField2.default,
           {
             floatingLabelText: 'Publisher',
-            value: this.state.value,
-            onChange: this.handleChange
+            value: this.state.publisherParams.value,
+            onChange: this.handlePublisherSelect
           },
-          this.state.publishers.map(function (publisher, i) {
+          this.state.publisherParams.publishers.map(function (publisher, i) {
             // console.log('found publisher', publisher, i)
             return _react2.default.createElement(_MenuItem2.default, { value: i, key: i, primaryText: publisher, name: publisher });
           })
@@ -11097,18 +11116,43 @@ var App = function (_Component) {
 
     _this.state = {
       comics: [],
-      filterParams: {} // params to filter the comics array by
+      filterParams: {},
+      formValues: {
+        publisher: '',
+        title: '',
+        volumeNumber: 1,
+        issueNumber: 1,
+        releaseDate: '', /*add this in later if I get past mvp to allow sorting by year */
+        notes: ''
+      },
+      publisherParams: {
+        value: 0,
+        primaryText: 'Marvel',
+        publishers: ['Marvel', 'DC Comics', 'Image', 'IDW', 'Dark Horse Comics', 'Valiant', 'Vertigo', 'Shonen Jump', 'Wild Storm', 'Other']
+      }
+
     };
+    _this.addNewPublisher = _this.addNewPublisher.bind(_this);
+    _this.handlePublisherSelect = _this.handlePublisherSelect.bind(_this);
     _this.addComic = _this.addComic.bind(_this);
     _this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
 
     return _this;
   }
 
-  // will be called in component did mount for /Home so that on get req to home, all comics in db are served 
-
-
   _createClass(App, [{
+    key: 'addNewPublisher',
+    value: function addNewPublisher() {}
+
+    // will update the publisherParams 
+
+  }, {
+    key: 'handlePublisherSelect',
+    value: function handlePublisherSelect(event, value) {}
+
+    // will be called in component did mount for /Home so that on get req to home, all comics in db are served 
+
+  }, {
     key: 'getAllComics',
     value: function getAllComics() {}
 
@@ -11118,18 +11162,20 @@ var App = function (_Component) {
     key: 'getFilteredComics',
     value: function getFilteredComics() {}
 
+    //TODO: refactor addcomic so that it takes in comic and adds publisher value 
     // will be called in handleFormSubmit
 
   }, {
     key: 'addComic',
     value: function addComic(comic) {
+
       // sends a post to the server  of the comic
       console.log('whats the comic', comic);
       // let comics = this.state.comics.slice();
       // comics.push(comic);
       _axios2.default.post('/comics/add', comic).then(function (response) {
         console.log('the server responded with', response);
-      });
+      }); // want the server to redirect to home 
     }
 
     // listening for button click signalling that comics should be pushed

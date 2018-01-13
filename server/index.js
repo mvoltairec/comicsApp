@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const db = require('../db/config/db.js');
+const env = require('../db/config/env');
 
 const app = express();
 const PORT = process.env.PORT || 9000;
@@ -23,6 +25,8 @@ app.use(function (req, res, next) {
   res.status(404).redirect('https://http.cat/404')
 })
 
-app.listen(PORT, () => {
-	console.log(`listening on port ${PORT}`);
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+	  console.log(`listening on port ${PORT}`);
+  });
 });

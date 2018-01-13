@@ -3,7 +3,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 
-export default class SelectFieldExampleSimple extends Component {
+export default class PublisherDropDown extends Component {
   state = {
     value: 0,
     primaryText: 'Marvel',
@@ -26,12 +26,6 @@ export default class SelectFieldExampleSimple extends Component {
           // console.log('found publisher', publisher, i)
             return <MenuItem value={i} key={i} primaryText={publisher} name={publisher}/>
           })}
-
-          {/* <MenuItem value={1} primaryText="Never" />
-          <MenuItem value={2} primaryText="Every Night" />
-          <MenuItem value={3} primaryText="Weeknights" />
-          <MenuItem value={4} primaryText="Weekends" />
-          <MenuItem value={5} primaryText="Weekly" /> */}
         </SelectField>
       </div>
     );

@@ -8,4 +8,7 @@ node_modules
 /react/src/config/config.js
 
 # ignore db config
-/db/config.js
+/db/config
+
+#ignore ds store
+.DS_Store

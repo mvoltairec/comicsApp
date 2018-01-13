@@ -3,7 +3,7 @@ import NavigationBar from './NavigationBar';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import RaisedButton from 'material-ui/RaisedButton';
-import SelectFieldExampleSimple from './PublisherDropDown';
+import PublisherDropDown from './PublisherDropDown';
 import {orange500, blue500} from 'material-ui/styles/colors';
 
 // TODO: If there's time, modify the publisher to be  aselect drop down so that a user can select the publisher
@@ -63,6 +63,7 @@ handleSubmit(e) {
           <br/>
           <form>
             <fieldset>
+              <PublisherDropDown />
               <TextField
                 name="publisher"
                 hintText="e.g. Marvel, DC, Image, ..."
@@ -72,7 +73,6 @@ handleSubmit(e) {
               />
 
               <br/>
-              <SelectFieldExampleSimple />
               <TextField
                 name="title"
                 hintText="e.g. Batman"

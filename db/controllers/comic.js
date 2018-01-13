@@ -1,19 +1,6 @@
-var db = require('../config/config');
-// var ObjectId = require('mongodb').ObjectId;
-var Schema = db.mongoose.Schema;
+var model = require('../models/comic');
 
-var comicSchema = new Schema({
-  publisher: String,
-  title: String,
-  volumeNumber: String,
-  issueNumber: String,
-  releaseDate: String,
-  notes: String
-})
-
-var Comics = db.mongoose.model('Comic', comicSchema);
-
-var insert = (req, res) => {
+var addComic = (req, res) => {
   let comic = {
     publisher: req.body.publisher,
     title: req.body.title,
@@ -22,12 +9,12 @@ var insert = (req, res) => {
     releaseDate: req.body.releaseDate,
     notes: req.body.notes}
 
-  Comics.find(comic)
+  model.Comics.find(comic)
     .exec( (error, result) => {
       if (error) {throw error;}
       //if comic was not found
       if (!result.length) {
-        let newComic = new Comics(comic);
+        let newComic = new model.Comics(comic);
         newComic.save( (err, savedComic) => {
           if (err) { 
             console.log('error trying to save the comic', err);
@@ -43,4 +30,4 @@ var insert = (req, res) => {
     })
   };
 
-exports.insert = insert;
+exports.addComic = addComic;

@@ -9628,8 +9628,8 @@ var ComicsAdd = function (_Component) {
     _this.state = {
       formValues: {
         title: '',
-        volumeNumber: 1,
-        issueNumber: 1,
+        volumeNumber: '',
+        issueNumber: '',
         releaseDate: '', /*add this in later if I get past mvp to allow sorting by year */
         notes: ''
       }
@@ -9661,7 +9661,7 @@ var ComicsAdd = function (_Component) {
       e.preventDefault();
       // console.log('state when pressing submit button is', this.state)
       var comic = this.state.formValues;
-      this.props.handleSubmit(e);
+      this.props.handleFormSubmit(e);
       // want the server to redirect to home 
     }
   }, {
@@ -10944,6 +10944,7 @@ var PublisherDropDown = function (_Component) {
       var publisherParams = this.state.publisherParams;
       publisherParams.value = value;
       publisherParams.primaryText = publisherParams.publishers[value];
+      publisherParams.publisher_id = publisherParams.publishers;
       this.setState({ publisherParams: publisherParams });
       // console.log('the publisherParams copy', publisherParams, () => { console.log('state after selecting value is now', this.state)});
       this.props.handlePublisherSelect(event, value);
@@ -10965,10 +10966,11 @@ var PublisherDropDown = function (_Component) {
             value: this.state.publisherParams.value,
             onChange: this.handlePublisherSelect
           },
+          _react2.default.createElement(_MenuItem2.default, { value: 0, primaryText: '' }),
           this.state.publisherParams.publishers.map(function (publisher, i) {
             // console.log('found publisher', publisher, i)
             // console.log('what does the publiosher item look like', publisher);
-            return _react2.default.createElement(_MenuItem2.default, { value: i, key: i, primaryText: publisher.name });
+            return _react2.default.createElement(_MenuItem2.default, { value: i + 1, key: i + 1, primaryText: publisher.name });
           })
         )
       );
@@ -11162,6 +11164,7 @@ var App = function (_Component) {
       publisherParams: {
         value: 0,
         primaryText: '',
+        publisher_id: '',
         publishers: []
       }
 
@@ -11195,7 +11198,8 @@ var App = function (_Component) {
       // let publisherParams = Object.assign({}, this.state.publisherParams); //not modifying the state directly, making a copy
       var publisherParams = this.state.publisherParams;
       publisherParams.value = value;
-      publisherParams.primaryText = publisherParams.publishers[value].name;
+      publisherParams.primaryText = publisherParams.publishers[value - 1].name;
+      publisherParams.publisher_id = publisherParams.publishers[value - 1].id;
       this.setState({ publisherParams: publisherParams }, function () {
         return console.log('the state after selection is now', _this2.state);
       });

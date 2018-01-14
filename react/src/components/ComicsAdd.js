@@ -17,8 +17,8 @@ class ComicsAdd extends Component {
     this.state = {
       formValues: {
         title: '',
-        volumeNumber: 1,
-        issueNumber: 1,
+        volumeNumber: '',
+        issueNumber: '',
         releaseDate: '', /*add this in later if I get past mvp to allow sorting by year */
         notes: ''
       }
@@ -46,7 +46,7 @@ handleSubmit(e) {
   e.preventDefault();
   // console.log('state when pressing submit button is', this.state)
   let comic = this.state.formValues;
-  this.props.handleSubmit(e);
+  this.props.handleFormSubmit(e);
   // want the server to redirect to home 
 }
 

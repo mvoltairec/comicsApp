@@ -7,8 +7,5 @@ node_modules
 # ignore API keys
 /react/src/config/config.js
 
-# ignore db config
-/db/config
-
 #ignore ds store
 .DS_Store

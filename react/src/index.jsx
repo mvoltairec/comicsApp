@@ -30,6 +30,7 @@ class App extends Component {
       publisherParams: {
         value: 0,
         primaryText: '',
+        publisher_id: '',
         publishers: []
       }
 
@@ -57,7 +58,8 @@ class App extends Component {
     // let publisherParams = Object.assign({}, this.state.publisherParams); //not modifying the state directly, making a copy
     let publisherParams = this.state.publisherParams;
     publisherParams.value = value;
-    publisherParams.primaryText = publisherParams.publishers[value].name;
+    publisherParams.primaryText = publisherParams.publishers[value-1].name;
+    publisherParams.publisher_id = publisherParams.publishers[value-1].id;
     this.setState({publisherParams}, () => console.log('the state after selection is now', this.state) )
     // console.log('the publisherParams copy', publisherParams, () => { console.log('state after selecting value is now', this.state)});
   }

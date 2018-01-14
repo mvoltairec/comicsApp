@@ -1,19 +1,17 @@
+var db = require('../config/db');
 
 module.exports = (sequelize, DataTypes) => {
  const Comic = sequelize.define('comic', {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false
-    },
-    publisher_id: {
-      type: DataTypes.UUID,
+      autoIncrement:true,
       allowNull: false
     },
     title: {
       type: DataTypes.STRING,
-      required: true
+      required: true,
+      allowNull: false
     },
     volume_number: {
       type: DataTypes.STRING
@@ -27,9 +25,10 @@ module.exports = (sequelize, DataTypes) => {
     notes: {
       type: DataTypes.STRING(500)
     }
-  },
- {
-  underscored: true
-});
+  },{ 
+    underscored: true
+  } 
+  );
+console.log('Checking the Comic attributes', Object.keys(Comic.rawAttributes));
 return Comic;
 };

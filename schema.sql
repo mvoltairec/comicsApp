@@ -4,19 +4,25 @@ CREATE DATABASE comicsCollection;
 
 USE comicsCollection;
 
-CREATE TABLE sample (
-	sample_id int NOT NULL AUTO_INCREMENT, 
-	name varchar(255) NOT NULL, 
-	PRIMARY KEY (sample_id)
+CREATE TABLE publishers (
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(255),
+  PRIMARY KEY (ID)
 );
 
-CREATE TABLE anotherTable (
-  id int NOT NULL AUTO_INCREMENT,
-  date date,
-  sample_id int,
-  FOREIGN KEY (sample_id) REFERENCES sample(sample_id), 
-  PRIMARY KEY (id)
-);
+-- CREATE TABLE comics (
+-- 	id int NOT NULL AUTO_INCREMENT, 
+--   title varchar(255),
+--   volume_number varchar(255),
+--   issue_number varchar(255),
+--   release_date varchar(255),
+--   notes varchar(500)
+--   publishers_id int,
+--   FOREIGN KEY (publishers_id) REFERENCES publishers(id),
+-- 	PRIMARY KEY (ID)
+-- );
+
+
 
 
 
@@ -25,5 +31,13 @@ CREATE TABLE anotherTable (
 
 -- this is just some sample data that will be created everytime that the db is 
 -- restarted using the above 
-INSERT INTO sample (name) VALUES ("none");
-INSERT INTO anotherTable (sample_id) VALUES (1);
+
+INSERT into publishers (id, name) VALUES (1, "Marvel");
+INSERT into publishers (id, name) VALUES (2, "DC Comics");
+INSERT into publishers (id, name) VALUES (3, "Image");
+INSERT into publishers (id, name) VALUES (4, "IDW");
+INSERT into publishers (id, name) VALUES (5, "Dark Horse Comics");
+INSERT into publishers (id, name) VALUES (6, "Shonen Jump");
+INSERT into publishers (id, name) VALUES (7, "Valiant");
+INSERT into publishers (id, name) VALUES (8, "WildStorm");
+INSERT into publishers (id, name) VALUES (9, "Vertigo");

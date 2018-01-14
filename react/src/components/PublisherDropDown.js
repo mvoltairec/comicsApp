@@ -43,6 +43,7 @@ export default class PublisherDropDown extends Component {
     let publisherParams = this.state.publisherParams;
     publisherParams.value = value;
     publisherParams.primaryText = publisherParams.publishers[value];
+    publisherParams.publisher_id = publisherParams.publishers;
     this.setState({publisherParams}, )
     // console.log('the publisherParams copy', publisherParams, () => { console.log('state after selecting value is now', this.state)});
     this.props.handlePublisherSelect(event, value);
@@ -59,10 +60,11 @@ export default class PublisherDropDown extends Component {
           value={this.state.publisherParams.value}
           onChange={this.handlePublisherSelect}
         > 
+          <MenuItem value={0} primaryText='' />
           {this.state.publisherParams.publishers.map( (publisher, i) => {
           // console.log('found publisher', publisher, i)
             // console.log('what does the publiosher item look like', publisher);
-            return <MenuItem value={i} key={i} primaryText={publisher.name} />
+            return <MenuItem value={i+1} key={i+1} primaryText={publisher.name} />
           })}
         </SelectField>
       </div>

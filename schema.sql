@@ -10,17 +10,17 @@ CREATE TABLE publishers (
   PRIMARY KEY (ID)
 );
 
--- CREATE TABLE comics (
--- 	id int NOT NULL AUTO_INCREMENT, 
---   title varchar(255),
---   volume_number varchar(255),
---   issue_number varchar(255),
---   release_date varchar(255),
---   notes varchar(500)
---   publishers_id int,
---   FOREIGN KEY (publishers_id) REFERENCES publishers(id),
--- 	PRIMARY KEY (ID)
--- );
+CREATE TABLE comics (
+	id int NOT NULL AUTO_INCREMENT, 
+  title varchar(255),
+  volume_number varchar(255),
+  issue_number varchar(255),
+  release_date varchar(255),
+  notes varchar(500),
+  publishers_id int,
+  FOREIGN KEY (publishers_id) REFERENCES publishers(id),
+	PRIMARY KEY (ID)
+);
 
 
 

@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(500)
     }
   },{ 
-    underscored: true
+    underscored: true,
+    timestamps: false,
   } 
   );
 console.log('Checking the Comic attributes', Object.keys(Comic.rawAttributes));

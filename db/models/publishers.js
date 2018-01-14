@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       required: true
     }
-  });
+  }, { 
+    underscored: true,
+    timestamps: false,
+  } 
+);
   console.log('Checking the publisher attributes', Object.keys(Publisher.rawAttributes));
   return Publisher;
 };

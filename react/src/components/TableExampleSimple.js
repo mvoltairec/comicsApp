@@ -17,6 +17,10 @@ const TableExampleSimple = () => (
       <TableRow>
         <TableHeaderColumn>Publisher</TableHeaderColumn>
         <TableHeaderColumn>Title</TableHeaderColumn>
+        <TableHeaderColumn>Volume#</TableHeaderColumn>
+        <TableHeaderColumn>Issue#</TableHeaderColumn>
+        <TableHeaderColumn>Date</TableHeaderColumn>
+        <TableHeaderColumn>Notes</TableHeaderColumn>
       </TableRow>
     </TableHeader>
     <TableBody displayRowCheckbox={false}>

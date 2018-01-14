@@ -16,7 +16,6 @@ class ComicsAdd extends Component {
     super(props);
     this.state = {
       formValues: {
-        publisher: '',
         title: '',
         volumeNumber: 1,
         issueNumber: 1,
@@ -30,25 +29,25 @@ class ComicsAdd extends Component {
   // Date is not of the form MM-YYYY (so that I can transform it into a date using moment, will help with being able to sort)
   
 
-
-
 handleFormChange(e) {
-  e.preventDefault();
-  let formValues = this.state.formValues;
-  let name = e.target.name;
-  let value = e.target.value;
+  // e.preventDefault();
+  // let formValues = this.state.formValues;
+  // let name = e.target.name;
+  // let value = e.target.value;
 
-  formValues[name] = value;
+  // formValues[name] = value;
 
-  this.setState({formValues});
-  console.log('current state is', this.state.formValues);
+  // this.setState({formValues});
+  // console.log('current state is', this.state.formValues);
+  this.props.handleFormChange(e);
 }
 
 handleSubmit(e) {
   e.preventDefault();
-  console.log('state when pressing submit button is', this.state)
+  // console.log('state when pressing submit button is', this.state)
   let comic = this.state.formValues;
-  this.props.addComic(comic);
+  this.props.handleSubmit(e);
+  // want the server to redirect to home 
 }
 
 
@@ -63,15 +62,7 @@ handleSubmit(e) {
           <br/>
           <form>
             <fieldset>
-              <PublisherDropDown />
-              <TextField
-                name="publisher"
-                hintText="e.g. Marvel, DC, Image, ..."
-                floatingLabelText="Publisher"
-                onChange={this.handleFormChange.bind(this)}
-                fullWidth={true}
-              />
-
+              <PublisherDropDown handlePublisherSelect={this.props.handlePublisherSelect} publisherParams={this.props.publisherParams}/>
               <br/>
               <TextField
                 name="title"

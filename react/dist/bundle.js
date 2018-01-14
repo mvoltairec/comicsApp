@@ -9627,7 +9627,6 @@ var ComicsAdd = function (_Component) {
 
     _this.state = {
       formValues: {
-        publisher: '',
         title: '',
         volumeNumber: 1,
         issueNumber: 1,
@@ -9645,23 +9644,25 @@ var ComicsAdd = function (_Component) {
   _createClass(ComicsAdd, [{
     key: 'handleFormChange',
     value: function handleFormChange(e) {
-      e.preventDefault();
-      var formValues = this.state.formValues;
-      var name = e.target.name;
-      var value = e.target.value;
+      // e.preventDefault();
+      // let formValues = this.state.formValues;
+      // let name = e.target.name;
+      // let value = e.target.value;
 
-      formValues[name] = value;
+      // formValues[name] = value;
 
-      this.setState({ formValues: formValues });
-      console.log('current state is', this.state.formValues);
+      // this.setState({formValues});
+      // console.log('current state is', this.state.formValues);
+      this.props.handleFormChange(e);
     }
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       e.preventDefault();
-      console.log('state when pressing submit button is', this.state);
+      // console.log('state when pressing submit button is', this.state)
       var comic = this.state.formValues;
-      this.props.addComic(comic);
+      this.props.handleSubmit(e);
+      // want the server to redirect to home 
     }
   }, {
     key: 'render',
@@ -9689,14 +9690,7 @@ var ComicsAdd = function (_Component) {
             _react2.default.createElement(
               'fieldset',
               null,
-              _react2.default.createElement(_PublisherDropDown2.default, null),
-              _react2.default.createElement(_TextField2.default, {
-                name: 'publisher',
-                hintText: 'e.g. Marvel, DC, Image, ...',
-                floatingLabelText: 'Publisher',
-                onChange: this.handleFormChange.bind(this),
-                fullWidth: true
-              }),
+              _react2.default.createElement(_PublisherDropDown2.default, { handlePublisherSelect: this.props.handlePublisherSelect, publisherParams: this.props.publisherParams }),
               _react2.default.createElement('br', null),
               _react2.default.createElement(_TextField2.default, {
                 name: 'title',
@@ -10905,14 +10899,37 @@ var PublisherDropDown = function (_Component) {
       publisherParams: {
         value: 0,
         primaryText: 'Marvel',
-        publishers: ['Marvel', 'DC Comics', 'Image', 'IDW', 'Dark Horse Comics', 'Valiant', 'Vertigo', 'Shonen Jump', 'Wild Storm', 'Other']
+        publishers: ['Vertigo', 'Shonen Jump', 'Wild Storm', 'Other']
       }
     };
     _this.handlePublisherSelect = _this.handlePublisherSelect.bind(_this);
     return _this;
   }
 
+  // if changes were made in parent component (like more publishers added in a future verison of the app), then update the child component
+
   _createClass(PublisherDropDown, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      // console.log('PUBLISHER COMPONENT RECEIVED PROPS?', this.props)
+      if (nextProps.value !== this.props.value) {
+        this.setState({ publisherParams: publisherParams });
+      }
+    }
+
+    // set the state to receive props from parent
+
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      // console.log('what is the state before mounting', this.state)
+      this.setState({ publisherParams: this.props.publisherParams }, function () {
+        console.log('what is the state after setting state in publishers componentwillmount', _this2.state);
+      });
+    }
+  }, {
     key: 'addNewPublisher',
     value: function addNewPublisher() {
       // should be called in handleSelect change when other is selected
@@ -10920,19 +10937,16 @@ var PublisherDropDown = function (_Component) {
   }, {
     key: 'handlePublisherSelect',
     value: function handlePublisherSelect(event, value) {
-      var _this2 = this;
-
-      // event.preventDefault();
-      console.log('what is the state', this.state);
+      event.preventDefault();
+      // console.log('what is the state', this.state)
       // let publisherParams = this.state;
       // let publisherParams = Object.assign({}, this.state.publisherParams); //not modifying the state directly, making a copy
       var publisherParams = this.state.publisherParams;
       publisherParams.value = value;
       publisherParams.primaryText = publisherParams.publishers[value];
       this.setState({ publisherParams: publisherParams });
-      console.log('the publisherParams copy', publisherParams, function () {
-        console.log('state after selecting value is now', _this2.state);
-      });
+      // console.log('the publisherParams copy', publisherParams, () => { console.log('state after selecting value is now', this.state)});
+      this.props.handlePublisherSelect(event, value);
     }
 
     // handleChange = (event, value) => this.setState({value: value, primaryText: this.state.publishers[value]}, () => { console.log('state after selecting value is now', this.state)});
@@ -10940,7 +10954,7 @@ var PublisherDropDown = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('the state when rendering', this.state);
+      // console.log('the state of publish component when rendering', this.state)
       return _react2.default.createElement(
         'div',
         null,
@@ -10953,7 +10967,8 @@ var PublisherDropDown = function (_Component) {
           },
           this.state.publisherParams.publishers.map(function (publisher, i) {
             // console.log('found publisher', publisher, i)
-            return _react2.default.createElement(_MenuItem2.default, { value: i, key: i, primaryText: publisher, name: publisher });
+            // console.log('what does the publiosher item look like', publisher);
+            return _react2.default.createElement(_MenuItem2.default, { value: i, key: i, primaryText: publisher.name });
           })
         )
       );
@@ -11006,6 +11021,26 @@ var TableExampleSimple = function TableExampleSimple() {
           _Table.TableHeaderColumn,
           null,
           'Title'
+        ),
+        _react2.default.createElement(
+          _Table.TableHeaderColumn,
+          null,
+          'Volume#'
+        ),
+        _react2.default.createElement(
+          _Table.TableHeaderColumn,
+          null,
+          'Issue#'
+        ),
+        _react2.default.createElement(
+          _Table.TableHeaderColumn,
+          null,
+          'Date'
+        ),
+        _react2.default.createElement(
+          _Table.TableHeaderColumn,
+          null,
+          'Notes'
         )
       )
     ),
@@ -11118,7 +11153,6 @@ var App = function (_Component) {
       comics: [],
       filterParams: {},
       formValues: {
-        publisher: '',
         title: '',
         volumeNumber: 1,
         issueNumber: 1,
@@ -11127,28 +11161,59 @@ var App = function (_Component) {
       },
       publisherParams: {
         value: 0,
-        primaryText: 'Marvel',
-        publishers: ['Marvel', 'DC Comics', 'Image', 'IDW', 'Dark Horse Comics', 'Valiant', 'Vertigo', 'Shonen Jump', 'Wild Storm', 'Other']
+        primaryText: '',
+        publishers: []
       }
 
     };
-    _this.addNewPublisher = _this.addNewPublisher.bind(_this);
+    _this.getAllPublishers = _this.getAllPublishers.bind(_this);
     _this.handlePublisherSelect = _this.handlePublisherSelect.bind(_this);
     _this.addComic = _this.addComic.bind(_this);
     _this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
+    _this.handleFormChange = _this.handleFormChange.bind(_this);
 
     return _this;
   }
 
+  /* TODO, if there's time
+  
+  addNewPublisher() {
+    
+  }
+  */
+
+  // will update the publisherParams 
+
+
   _createClass(App, [{
-    key: 'addNewPublisher',
-    value: function addNewPublisher() {}
-
-    // will update the publisherParams 
-
-  }, {
     key: 'handlePublisherSelect',
-    value: function handlePublisherSelect(event, value) {}
+    value: function handlePublisherSelect(event, value) {
+      var _this2 = this;
+
+      console.log('what is the state', this.state);
+      // let publisherParams = this.state;
+      // let publisherParams = Object.assign({}, this.state.publisherParams); //not modifying the state directly, making a copy
+      var publisherParams = this.state.publisherParams;
+      publisherParams.value = value;
+      publisherParams.primaryText = publisherParams.publishers[value].name;
+      this.setState({ publisherParams: publisherParams }, function () {
+        return console.log('the state after selection is now', _this2.state);
+      });
+      // console.log('the publisherParams copy', publisherParams, () => { console.log('state after selecting value is now', this.state)});
+    }
+  }, {
+    key: 'getAllPublishers',
+    value: function getAllPublishers() {
+      var _this3 = this;
+
+      _axios2.default.get('/publishers').then(function (publishers) {
+        var publisherParams = _this3.state.publisherParams;
+        publisherParams.publishers = publishers.data;
+        _this3.setState({ publisherParams: publisherParams }, function () {
+          console.log('the state after calling publishers from db', _this3.state);
+        });
+      });
+    }
 
     // will be called in component did mount for /Home so that on get req to home, all comics in db are served 
 
@@ -11167,12 +11232,20 @@ var App = function (_Component) {
 
   }, {
     key: 'addComic',
-    value: function addComic(comic) {
-
+    value: function addComic() {
       // sends a post to the server  of the comic
-      console.log('whats the comic', comic);
       // let comics = this.state.comics.slice();
       // comics.push(comic);
+
+      var comic = {
+        publisher: this.state.publisherParams.primaryText,
+        title: this.state.formValues.title,
+        volumeNumber: this.state.formValues.volumeNumber,
+        issueNumber: this.state.formValues.issueNumber,
+        releaseDate: this.state.formValues.releaseDate,
+        notes: this.state.formValues.notes
+      };
+      console.log('what is the comic from the client side before posting', comic);
       _axios2.default.post('/comics/add', comic).then(function (response) {
         console.log('the server responded with', response);
       }); // want the server to redirect to home 
@@ -11183,7 +11256,20 @@ var App = function (_Component) {
   }, {
     key: 'handleFormSubmit',
     value: function handleFormSubmit(e) {
-      console.log('this handle form submit was called from the app component');
+      this.addComic();
+    }
+  }, {
+    key: 'handleFormChange',
+    value: function handleFormChange(e) {
+      e.preventDefault();
+      var formValues = this.state.formValues;
+      var name = e.target.name;
+      var value = e.target.value;
+
+      formValues[name] = value;
+
+      this.setState({ formValues: formValues });
+      console.log('current state in the app component', this.state);
     }
 
     // update
@@ -11202,9 +11288,15 @@ var App = function (_Component) {
       // delete request to server
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.getAllPublishers();
+      // this.getAllComics()
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this4 = this;
 
       return _react2.default.createElement(
         'main',
@@ -11214,7 +11306,7 @@ var App = function (_Component) {
           null,
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/comics/add', render: function render() {
-              return _react2.default.createElement(_ComicsAdd2.default, { addComic: _this2.addComic, handleFormSubmit: _this2.handleFormSubmit });
+              return _react2.default.createElement(_ComicsAdd2.default, { addComic: _this4.addComic, handleFormSubmit: _this4.handleFormSubmit, handleFormChange: _this4.handleFormChange, handlePublisherSelect: _this4.handlePublisherSelect, publisherParams: _this4.state.publisherParams });
             } }),
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/comics/edit', component: _ComicsEdit2.default })
         )

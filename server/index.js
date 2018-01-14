@@ -22,7 +22,7 @@ app.use('/', require('./routes'));
 // })
 
 app.use(function (req, res, next) {
-  res.status(404).redirect('https://http.cat/404')
+  res.status(404).send('404 not found')
 })
 
 db.sequelize.sync().then(() => {

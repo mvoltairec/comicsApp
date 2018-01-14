@@ -26,7 +26,7 @@ const ComicsTable = () => (
     </TableHeader>
     <TableBody displayRowCheckbox={false}>
       <TableRow>
-        <TableRowColumn><i class="material-icons">face</i></TableRowColumn>
+        <TableRowColumn><i className="material-icons">face</i></TableRowColumn>
         <TableRowColumn>The Incredible Hulk</TableRowColumn>
       </TableRow>
       <TableRow>

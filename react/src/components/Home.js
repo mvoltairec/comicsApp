@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import NavigationBar from './NavigationBar';
 import ComicsTable from './ComicsTable';
-import Main from './test';
 
 class Home extends Component {
   constructor() {
@@ -20,7 +19,6 @@ class Home extends Component {
         <div className='wrapper'>
           <NavigationBar />
           <ComicsTable/>
-          <Main />
         </div>
     )
   }

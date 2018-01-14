@@ -11242,7 +11242,7 @@ var App = function (_Component) {
       // comics.push(comic);
 
       var comic = {
-        publisher: this.state.publisherParams.primaryText,
+        publisher_id: this.state.publisherParams.publisher_id,
         title: this.state.formValues.title,
         volumeNumber: this.state.formValues.volumeNumber,
         issueNumber: this.state.formValues.issueNumber,

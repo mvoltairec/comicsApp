@@ -90,7 +90,7 @@ class App extends Component {
     // comics.push(comic);
   
     let comic = {
-      publisher: this.state.publisherParams.primaryText,
+      publisher_id: this.state.publisherParams.publisher_id,
       title: this.state.formValues.title,
       volumeNumber: this.state.formValues.volumeNumber,
       issueNumber: this.state.formValues.issueNumber,

@@ -11,7 +11,7 @@ CREATE TABLE publishers (
 );
 
 CREATE TABLE comics (
-	id int NOT NULL AUTO_INCREMENT, 
+	id int NOT NULL AUTO_INCREMENT,
   title varchar(255),
   volume_number varchar(255),
   issue_number varchar(255),
@@ -26,18 +26,18 @@ CREATE TABLE comics (
 
 
 
--- to start the db in mysql, use the following command: 
+-- to start the db in mysquse the following command: 
 -- mysql -u <USER> < schema.sql
 
 -- this is just some sample data that will be created everytime that the db is 
 -- restarted using the above 
 
-INSERT into publishers (id, name) VALUES (1, "Marvel");
-INSERT into publishers (id, name) VALUES (2, "DC Comics");
-INSERT into publishers (id, name) VALUES (3, "Image");
-INSERT into publishers (id, name) VALUES (4, "IDW");
-INSERT into publishers (id, name) VALUES (5, "Dark Horse Comics");
-INSERT into publishers (id, name) VALUES (6, "Shonen Jump");
-INSERT into publishers (id, name) VALUES (7, "Valiant");
-INSERT into publishers (id, name) VALUES (8, "WildStorm");
-INSERT into publishers (id, name) VALUES (9, "Vertigo");
+INSERT into publishers (name) VALUES ("Marvel");
+INSERT into publishers (name) VALUES ("DC Comics");
+INSERT into publishers (name) VALUES ("Image");
+INSERT into publishers (name) VALUES ("IDW");
+INSERT into publishers (name) VALUES ("Dark Horse Comics");
+INSERT into publishers (name) VALUES ("Shonen Jump");
+INSERT into publishers (name) VALUES ("Valiant");
+INSERT into publishers (name) VALUES ("WildStorm");
+INSERT into publishers (name) VALUES ("Vertigo");

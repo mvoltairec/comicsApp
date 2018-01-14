@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import NavigationBar from './NavigationBar';
-import ComicsList from './ComicsList';
-import TableExampleSimple from './TableExampleSimple';
+import ComicsTable from './ComicsTable';
+import Main from './test';
 
 class Home extends Component {
   constructor() {
@@ -15,11 +15,12 @@ class Home extends Component {
   handleToggle = () => this.setState({open: !this.state.open});
 
   render() {
+    console.log('what are the proops being passed to Home component', this.props)
     return (
         <div className='wrapper'>
           <NavigationBar />
-          {/* <ComicsList /> */}
-          <TableExampleSimple />
+          <ComicsTable/>
+          <Main />
         </div>
     )
   }

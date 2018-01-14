@@ -11,7 +11,7 @@ import {
 /**
  * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.
  */
-const TableExampleSimple = () => (
+const ComicsTable = () => (
   <Table>
     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
       <TableRow>
@@ -21,11 +21,12 @@ const TableExampleSimple = () => (
         <TableHeaderColumn>Issue#</TableHeaderColumn>
         <TableHeaderColumn>Date</TableHeaderColumn>
         <TableHeaderColumn>Notes</TableHeaderColumn>
+        <TableHeaderColumn>     </TableHeaderColumn>
       </TableRow>
     </TableHeader>
     <TableBody displayRowCheckbox={false}>
       <TableRow>
-        <TableRowColumn>Marvel</TableRowColumn>
+        <TableRowColumn><i class="material-icons">face</i></TableRowColumn>
         <TableRowColumn>The Incredible Hulk</TableRowColumn>
       </TableRow>
       <TableRow>
@@ -36,4 +37,4 @@ const TableExampleSimple = () => (
   </Table>
 );
 
-export default TableExampleSimple;
+export default ComicsTable;

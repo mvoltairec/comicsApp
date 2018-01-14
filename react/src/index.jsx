@@ -9,7 +9,7 @@ import axios from 'axios';
 import Home from './components/Home';
 import ComicsAdd from './components/ComicsAdd';
 import ComicsEdit from './components/ComicsEdit';
-import ComicsList from './components/ComicsList';
+
 
 
 injectTapEventPlugin();
@@ -35,12 +35,12 @@ class App extends Component {
       }
 
     }
-    this.getAllPublishers = this.getAllPublishers.bind(this);
     this.handlePublisherSelect = this.handlePublisherSelect.bind(this);
     this.addComic = this.addComic.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
-
+    // this.getAllPublishers = this.getAllComics.bind(this);
+    this.getInitialData = this.getInitialData.bind(this);
   }
 
   /* TODO, if there's time
@@ -64,18 +64,42 @@ class App extends Component {
     // console.log('the publisherParams copy', publisherParams, () => { console.log('state after selecting value is now', this.state)});
   }
 
-  getAllPublishers() {
-    axios.get('/publishers').then(publishers => {
-      let publisherParams = this.state.publisherParams;
-      publisherParams.publishers = publishers.data;
-      this.setState({publisherParams}, () => { console.log('the state after calling publishers from db', this.state)});
-    })
-  }
+  // getAllPublishers() {
+  //   axios.get('/publishers').then(publishers => {
+  //     console.log('getting all publishers', publishers);
+  //     let publisherParams = this.state.publisherParams;
+  //     publisherParams.publishers = publishers.data;
+  //     this.setState({publisherParams}, () => {
+  //       console.log('did the publisherParams state populate?', this.state);
+  //     });
+  //   })
+  // }
 
   // will be called in component did mount for /Home so that on get req to home, all comics in db are served 
-  getAllComics() {
+  // getAllComics() {
+  //   axios.get('/comics').then(response => {
+  //     console.log('getting all comics', response);
+  //     let comics = response.data;
+  //     this.setState({comics: response.data}, () => {console.log('what is the state after fetching comics', this.state)});
+  //   })
+  // } 
 
-  } 
+  getInitialData() {
+    axios.all([
+      axios.get('/publishers'), 
+      axios.get('/comics')
+    ])
+    .then(axios.spread( (publishers, comics) => {
+      // console.log('publishers data', publishers);
+      // console.log('comics data', comics);
+      let publisherParams = this.state.publisherParams;
+      publisherParams.publishers = publishers.data;
+      this.setState({publisherParams}, () => {
+        // console.log('did the publisherParams state populate?', this.state);
+        this.setState({comics: comics.data}, () => {console.log('what is the state after fetching comics', this.state)})
+      });
+    }))
+}
 
   // will pass filtered comics in the app state down to /Home as comics props
   getFilteredComics() {
@@ -133,8 +157,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getAllPublishers(); 
-    // this.getAllComics()
+    // this.getAllPublishers(); 
+    // this.getAllComics();
+    this.getInitialData();
   }
   
 
@@ -142,8 +167,8 @@ class App extends Component {
     return (
       <main>
         <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/comics/add" render={()=><ComicsAdd addComic={this.addComic} handleFormSubmit={this.handleFormSubmit} handleFormChange={this.handleFormChange} handlePublisherSelect={this.handlePublisherSelect} publisherParams={this.state.publisherParams}/>} />
+          <Route exact path="/" render={ ()=> <Home comics={this.state.comics} publisherParams={this.state.publisherParams}/> }/>
+          <Route exact path="/comics/add" render={ ()=> <ComicsAdd addComic={this.addComic} handleFormSubmit={this.handleFormSubmit} handleFormChange={this.handleFormChange} handlePublisherSelect={this.handlePublisherSelect} publisherParams={this.state.publisherParams}/> } />
           <Route exact path="/comics/edit" component={ComicsEdit}/>   
         </Switch>
       </main>

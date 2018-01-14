@@ -29,3 +29,11 @@ router.get('/publishers', (req,res) => {
 })
 
 module.exports = router;
+
+router.get('/comics', (req, res) => {
+  comicController.getAllComics(req,res)
+  .then(results => {
+    console.log('results from querying for comics', results)
+    res.send(results);
+  });
+})

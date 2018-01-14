@@ -1,6 +1,6 @@
 var db = require('../config/db');
 
-  var addComic = (req, res) => {
+  const addComic = (req, res) => {
 
     let comic = {
       publisher_id: req.body.publisher_id,
@@ -22,7 +22,7 @@ var db = require('../config/db');
   // console.log('Checking the publisher attributes', Object.keys(db.publishers.rawAttributes));
   
   // query to insert in to the comics table;
-  let query = "insert into comics (title, volume_number, issue_number, release_date, notes, publishers_id) VALUES (" 
+  let query = "insert into comics (title, volume_number, issue_number, release_date, notes, publisher_id) VALUES (" 
               + db.sequelize.getQueryInterface().escape(req.body.title) + ", " + db.sequelize.getQueryInterface().escape(req.body.volume_number) 
               + ", " + db.sequelize.getQueryInterface().escape(req.body.issue_number) + ", " + db.sequelize.getQueryInterface().escape(req.body.release_date) 
               + ", " + db.sequelize.getQueryInterface().escape(req.body.notes) + ", (SELECT id from publishers WHERE publishers.id=" + db.sequelize.getQueryInterface().escape(req.body.publisher_id) +"));";
@@ -46,8 +46,13 @@ var db = require('../config/db');
   //   console.log('Checking results', results);
   //   res.send(results);
   // })
-
-
 };
 
+const getAllComics = (req, res) => {
+  return db.comics.findAll({})
+}
+
+
+
 exports.addComic = addComic;
+exports.getAllComics = getAllComics;

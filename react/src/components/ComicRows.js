@@ -20,32 +20,14 @@ class ComicRows extends Component {
   render() {
     console.log('what are the proops being passed to ComicRow component', this.props)
     return (
-      <div className='tableContainer'>
-      {this.props.comics.map( (row,i) => {
-        return (
-          <div className='rows'>
-            <TableRow key={i} value={i}>
-              <TableRowColumn key={i} value={i}>{row.publisher}</TableRowColumn>
-            </TableRow>
-            <TableRow key={i} value={i}>
-              <TableRowColumn key={i} value={i}>{row.title}</TableRowColumn>
-            </TableRow>
-            <TableRow key={i} value={i}>
-              <TableRowColumn key={i} value={i}>{row.volume_number}</TableRowColumn>
-            </TableRow>
-            <TableRow key={i} value={i}>
-              <TableRowColumn key={i} value={i}>{row.issue_number}</TableRowColumn>
-            </TableRow>    
-            <TableRow key={i} value={i}>
-              <TableRowColumn key={i} value={i}>{row.release_date}</TableRowColumn>
-            </TableRow>
-            <TableRow key={i} value={i}>
-              <TableRowColumn key={i} value={i}>{row.notes}</TableRowColumn>
-            </TableRow>     
-          </div>
-        )
-      })}
-    </div>
+      <div className="cmx-row">
+        <div className="cmx-data">{this.props.comic.publisher}</div>
+        <div className="cmx-data">{this.props.comic.title}</div>
+        <div className="cmx-data">{this.props.comic.volume_number}</div>
+        <div className="cmx-data">{this.props.comic.issue_number}</div>
+        <div className="cmx-data">{this.props.comic.release_date}</div>
+        <div className="cmx-data">{this.props.comic.notes}</div>
+      </div>
     )
   }
 }

@@ -17,32 +17,25 @@ class ComicsTable extends Component {
   render() {
     console.log('what are the proops being passed to ComicRow component', this.props)
     return (
-      <Table>
-    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-      <TableRow>
-        <TableHeaderColumn>Publisher</TableHeaderColumn>
-        <TableHeaderColumn>Title</TableHeaderColumn>
-        <TableHeaderColumn>Volume#</TableHeaderColumn>
-        <TableHeaderColumn>Issue#</TableHeaderColumn>
-        <TableHeaderColumn>Date</TableHeaderColumn>
-        <TableHeaderColumn>Notes</TableHeaderColumn>
-        <TableHeaderColumn>     </TableHeaderColumn>
-      </TableRow>
-    </TableHeader>
-    <TableBody displayRowCheckbox={false}>
-      {/* <TableRow>
-        <TableRowColumn><i className="material-icons">face</i></TableRowColumn>
-        <TableRowColumn>The Incredible Hulk</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>DC</TableRowColumn>
-        <TableRowColumn>Batman</TableRowColumn>
-      </TableRow> */}
-    {/* <ComicsTable comics={this.props.comics} publisherParams={this.props.publisherParams} /> */}
-    {/* <ComicRows comics={this.props.comics} /> */}
-    
-    </TableBody>
-  </Table>
+      <div className="cmx">
+      <h3>List o comics</h3>
+      <fieldset>
+      <div className="cmx-table">
+        <div className="cmx-header cmx-row">
+          <div className="cmx-data">Publisher</div>
+          <div className="cmx-data">Title</div>
+          <div className="cmx-data">Volume #</div>
+          <div className="cmx-data">Issue #</div>
+          <div className="cmx-data">Date</div>
+          <div className="cmx-data">Notes</div>
+        </div>
+      </div>
+      {this.props.comics.map( (comic, i) => {
+        // console.log('what is the transactions[i]', this.props.transactions[i])
+        return <ComicRows key={i + 1} comic={comic} publisherParams={this.props.publisherParams} />;
+      } )}
+      </fieldset>
+    </div>
     )
   }
 }

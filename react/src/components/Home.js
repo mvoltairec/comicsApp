@@ -18,7 +18,7 @@ class Home extends Component {
     return (
         <div className='wrapper'>
           <NavigationBar />
-          <ComicsTable comics={this.props.comics} publisherParmas={this.props.publisherParmas}/>
+          <ComicsTable comics={this.props.comics} publisherParams={this.props.publisherParams}/>
         </div>
     )
   }

@@ -9777,7 +9777,7 @@ var Home = function (_Component) {
         'div',
         { className: 'wrapper' },
         _react2.default.createElement(_NavigationBar2.default, null),
-        _react2.default.createElement(_ComicsTable2.default, { comics: this.props.comics, publisherParmas: this.props.publisherParmas })
+        _react2.default.createElement(_ComicsTable2.default, { comics: this.props.comics, publisherParams: this.props.publisherParams })
       );
     }
   }]);
@@ -10798,54 +10798,63 @@ var ComicsTable = function (_Component) {
   _createClass(ComicsTable, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       console.log('what are the proops being passed to ComicRow component', this.props);
       return _react2.default.createElement(
-        _Table.Table,
-        null,
+        'div',
+        { className: 'cmx' },
         _react2.default.createElement(
-          _Table.TableHeader,
-          { displaySelectAll: false, adjustForCheckbox: false },
-          _react2.default.createElement(
-            _Table.TableRow,
-            null,
-            _react2.default.createElement(
-              _Table.TableHeaderColumn,
-              null,
-              'Publisher'
-            ),
-            _react2.default.createElement(
-              _Table.TableHeaderColumn,
-              null,
-              'Title'
-            ),
-            _react2.default.createElement(
-              _Table.TableHeaderColumn,
-              null,
-              'Volume#'
-            ),
-            _react2.default.createElement(
-              _Table.TableHeaderColumn,
-              null,
-              'Issue#'
-            ),
-            _react2.default.createElement(
-              _Table.TableHeaderColumn,
-              null,
-              'Date'
-            ),
-            _react2.default.createElement(
-              _Table.TableHeaderColumn,
-              null,
-              'Notes'
-            ),
-            _react2.default.createElement(
-              _Table.TableHeaderColumn,
-              null,
-              '     '
-            )
-          )
+          'h3',
+          null,
+          'List o comics'
         ),
-        _react2.default.createElement(_Table.TableBody, { displayRowCheckbox: false })
+        _react2.default.createElement(
+          'fieldset',
+          null,
+          _react2.default.createElement(
+            'div',
+            { className: 'cmx-table' },
+            _react2.default.createElement(
+              'div',
+              { className: 'cmx-header cmx-row' },
+              _react2.default.createElement(
+                'div',
+                { className: 'cmx-data' },
+                'Publisher'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmx-data' },
+                'Title'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmx-data' },
+                'Volume #'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmx-data' },
+                'Issue #'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmx-data' },
+                'Date'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmx-data' },
+                'Notes'
+              )
+            )
+          ),
+          this.props.comics.map(function (comic, i) {
+            // console.log('what is the transactions[i]', this.props.transactions[i])
+            return _react2.default.createElement(_ComicRows2.default, { key: i + 1, comic: comic, publisherParams: _this2.props.publisherParams });
+          })
+        )
       );
     }
   }]);
@@ -49121,67 +49130,37 @@ var ComicRows = function (_Component) {
       console.log('what are the proops being passed to ComicRow component', this.props);
       return _react2.default.createElement(
         'div',
-        { className: 'tableContainer' },
-        this.props.comics.map(function (row, i) {
-          return _react2.default.createElement(
-            'div',
-            { className: 'rows' },
-            _react2.default.createElement(
-              _Table.TableRow,
-              { key: i, value: i },
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                { key: i, value: i },
-                row.publisher
-              )
-            ),
-            _react2.default.createElement(
-              _Table.TableRow,
-              { key: i, value: i },
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                { key: i, value: i },
-                row.title
-              )
-            ),
-            _react2.default.createElement(
-              _Table.TableRow,
-              { key: i, value: i },
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                { key: i, value: i },
-                row.volume_number
-              )
-            ),
-            _react2.default.createElement(
-              _Table.TableRow,
-              { key: i, value: i },
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                { key: i, value: i },
-                row.issue_number
-              )
-            ),
-            _react2.default.createElement(
-              _Table.TableRow,
-              { key: i, value: i },
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                { key: i, value: i },
-                row.release_date
-              )
-            ),
-            _react2.default.createElement(
-              _Table.TableRow,
-              { key: i, value: i },
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                { key: i, value: i },
-                row.notes
-              )
-            )
-          );
-        })
+        { className: 'cmx-row' },
+        _react2.default.createElement(
+          'div',
+          { className: 'cmx-data' },
+          this.props.comic.publisher
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'cmx-data' },
+          this.props.comic.title
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'cmx-data' },
+          this.props.comic.volume_number
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'cmx-data' },
+          this.props.comic.issue_number
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'cmx-data' },
+          this.props.comic.release_date
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'cmx-data' },
+          this.props.comic.notes
+        )
       );
     }
   }]);

@@ -9,13 +9,18 @@ import axios from 'axios';
 import Home from './components/Home';
 import ComicsAdd from './components/ComicsAdd';
 import ComicsEdit from './components/ComicsEdit';
+import Link from 'react-router-dom';
 
 injectTapEventPlugin();
+
+// use componentWill mount or receive props instead of didmount;
+// checkout history.push and wrapping withRouter to get the routing down
 
 class App extends Component {
   constructor(props) {
     super(props); 
     this.state = {
+      comic_id: '',
       comics: [],
       filterParams: {},
       formValues: {
@@ -30,7 +35,8 @@ class App extends Component {
         primaryText: '',
         publisher_id: '',
         publishers: []
-      }
+      },
+      grabId: ''
 
     }
     this.handlePublisherSelect = this.handlePublisherSelect.bind(this);
@@ -38,7 +44,11 @@ class App extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
     this.removeComic = this.removeComic.bind(this);
+    this.editComic = this.editComic.bind(this);
     this.getInitialData = this.getInitialData.bind(this);
+    this.handleEditComicSaveChanges = this.handleEditComicSaveChanges.bind(this);
+    this.handleEditIconClick = this.handleEditIconClick.bind(this);
+    this.grabId = this.grabId.bind(this);
   }
 
   /* TODO, if there's time
@@ -104,6 +114,12 @@ class App extends Component {
 
   }
 
+  grabId() {
+    const grabId = window.location.href.split('/').reverse()[0];
+    this.setState({grabId});
+  }
+
+
   //TODO: refactor addcomic so that it takes in comic and adds publisher value 
   // will be called in handleFormSubmit
   addComic() {
@@ -145,10 +161,34 @@ class App extends Component {
 
 
   // update
-  editComic() {
+  editComic(id) {
     // put request to server
+    console.log('edit comic should grab this id', id);
+    // <Link to={`/comics/edit/:${id}`} activeClassName="active"></Link>
+    window.location.replace('http://localhost:9000/comics/edit/'+ id);
   }
 
+  handleEditIconClick(e){
+    this.editComic(id);
+  };
+
+  handleEditComicSaveChanges(e) {
+    e.preventDefault();
+    let comic = {
+      id: this.state.grabId,
+      publisher_id: this.state.publisherParams.publisher_id,
+      title: this.state.formValues.title,
+      volumeNumber: this.state.formValues.volumeNumber,
+      issueNumber: this.state.formValues.issueNumber,
+      releaseDate: this.state.formValues.releaseDate,
+      notes: this.state.formValues.notes
+    };
+    axios.put('/comics/edit/:id', comic).then(
+      response => {
+        console.log('response from serever after sending put request', response);
+      }
+    )
+  }
   // removes comic
   removeComic(id) {
     // delete request to server
@@ -175,12 +215,15 @@ class App extends Component {
   
 
   render () {
+    console.log('the app components current state', )
     return (
       <main>
         <Switch>
-          <Route exact path="/" render={ ()=> <Home comics={this.state.comics} publisherParams={this.state.publisherParams} removeComic={this.removeComic}/> }/>
+          <Route exact path="/" render={ ()=> <Home comics={this.state.comics} publisherParams={this.state.publisherParams} removeComic={this.removeComic} handleEditIconClick={this.handleEditIconClick} editComic={this.editComic}/> }/>
           <Route exact path="/comics/add" render={ ()=> <ComicsAdd addComic={this.addComic} handleFormSubmit={this.handleFormSubmit} handleFormChange={this.handleFormChange} handlePublisherSelect={this.handlePublisherSelect} publisherParams={this.state.publisherParams}/> } />
-          <Route exact path="/comics/edit" component={ComicsEdit}/>   
+          <Route exact path="/comics/edit" render={ ()=> <ComicsEdit grabId={this.grabId} editComic={this.editComic} handleEditComicSaveChanges={this.handleEditComicSaveChanges} handleFormChange={this.handleFormChange} handlePublisherSelect={this.handlePublisherSelect} publisherParams={this.state.publisherParams}/> } />          
+          {/* <Route exact path="/comics/edit" component={ComicsEdit}/>    */}
+          <Route exact path="/comics/edit/:id" render={ ()=> <ComicsEdit grabId={this.grabId} editComic={this.editComic} handleEditComicSaveChanges={this.handleEditComicSaveChanges} handleFormChange={this.handleFormChange} handlePublisherSelect={this.handlePublisherSelect} publisherParams={this.state.publisherParams}/> } />>   
         </Switch>
       </main>
     );

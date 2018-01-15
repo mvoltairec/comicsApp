@@ -13,7 +13,7 @@ app.use(express.static(__dirname + '/../react/dist'));
 
 app.use('/', require('./routes'));
 app.use('/comics/:id', require('./routes'));
-
+app.use('/comics/edit/:id', require('./routes'));
 
 // const getIssuesAscending = comimcsApi.URL + '/issues/?api_key=' + comimcsApi.API_KEY + '&sort=store_date:asc&format=json';
 

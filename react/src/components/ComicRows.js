@@ -16,10 +16,12 @@ class ComicRows extends Component {
     // needs to grab the id of the comic
   }
 
-  handleEditClick = () => {
-    // to do
+  handleEditIconClick = (e) => {
+    let id = this.props.comic.id;
+    console.log('in comicrows, the comic that will be updated is', this.props.comic)
+    this.props.editComic(id);
   }
-
+  
 //   componentWillReceiveProps(nextProps){
 //     // console.log('PUBLISHER COMPONENT RECEIVED PROPS?', this.props)
 //     if(nextProps.value !== this.props.value){
@@ -56,7 +58,7 @@ class ComicRows extends Component {
         <div className="cmx-data">{this.props.comic.notes}</div>
         <div className="cmx-data"> 
           <IconButton >
-            <Editor style={iconStyle} /> 
+            <Editor style={iconStyle} onClick={this.handleEditIconClick}/> 
           </IconButton>
           <IconButton >
             <Delete onClick={this.handleDeleteClick}/>

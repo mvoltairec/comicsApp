@@ -9675,6 +9675,28 @@ var _NavigationBar = __webpack_require__(59);
 
 var _NavigationBar2 = _interopRequireDefault(_NavigationBar);
 
+var _TextField = __webpack_require__(128);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+var _SelectField = __webpack_require__(126);
+
+var _SelectField2 = _interopRequireDefault(_SelectField);
+
+var _RaisedButton = __webpack_require__(274);
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _PublisherDropDown = __webpack_require__(168);
+
+var _PublisherDropDown2 = _interopRequireDefault(_PublisherDropDown);
+
+var _colors = __webpack_require__(53);
+
+var _reactRouterDom = __webpack_require__(57);
+
+var _reactRouterDom2 = _interopRequireDefault(_reactRouterDom);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9691,21 +9713,118 @@ var ComicsEdit = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (ComicsEdit.__proto__ || Object.getPrototypeOf(ComicsEdit)).call(this));
 
-    _this.state = {};
+    _this.state = {
+      formValues: {
+        title: '',
+        volumeNumber: '',
+        issueNumber: '',
+        releaseDate: '', /*add this in later if I get past mvp to allow sorting by year */
+        notes: ''
+      },
+      grabId: ''
+    };
     return _this;
   }
 
   _createClass(ComicsEdit, [{
+    key: 'handleFormChange',
+    value: function handleFormChange(e) {
+      this.props.handleFormChange(e);
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      // console.log('state when pressing submit button is', this.state)
+      var comic = this.state.formValues;
+      this.props.handleEditComicSaveChanges(e);
+      // want the server to redirect to home 
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      // grab off the id from the window.location;
+      this.props.grabId();
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      // console.log('where are props for comic add', this.props)
+      console.log('IN EDIT COMPONENT', this.props);
+      console.log('window location', window.location.href);
+
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(_NavigationBar2.default, null),
         _react2.default.createElement(
           'div',
-          null,
-          'some ways to edit comics? go here'
+          { className: 'addComix' },
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Enter your changes below'
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'form',
+            null,
+            _react2.default.createElement(
+              'fieldset',
+              null,
+              _react2.default.createElement(_PublisherDropDown2.default, { handlePublisherSelect: this.props.handlePublisherSelect, publisherParams: this.props.publisherParams }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(_TextField2.default, {
+                name: 'title',
+                hintText: 'e.g. Batman',
+                floatingLabelText: 'Title',
+                onChange: this.handleFormChange.bind(this),
+                fullWidth: true
+              }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(_TextField2.default, {
+                name: 'volumeNumber',
+                hintText: '1',
+                floatingLabelText: 'Volume Number',
+                onChange: this.handleFormChange.bind(this),
+                fullWidth: true
+              }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(_TextField2.default, {
+                name: 'issueNumber',
+                hintText: '27',
+                floatingLabelText: 'Issue Number',
+                onChange: this.handleFormChange.bind(this),
+                fullWidth: true
+              }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(_TextField2.default, {
+                name: 'releaseDate',
+                hintText: 'MM-YYYY',
+                floatingLabelText: 'Publish Date',
+                onChange: this.handleFormChange.bind(this),
+                fullWidth: true
+              }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(_TextField2.default, {
+                name: 'notes',
+                hintText: 'helpful notes to self about this comic go here',
+                floatingLabelText: 'Notes',
+                multiLine: true,
+                rows: 2,
+                onChange: this.handleFormChange.bind(this),
+                fullWidth: true
+              }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(_RaisedButton2.default, { label: 'Save Changes', onClick: function onClick(e) {
+                  return _this2.handleSubmit(e);
+                } })
+            )
+          )
         )
       );
     }
@@ -9715,6 +9834,123 @@ var ComicsEdit = function (_Component) {
 }(_react.Component);
 
 exports.default = ComicsEdit;
+
+//should have roughly the same code, except button will read edit this comic to differentiate (for now)
+
+
+// import React, { Component } from 'react';
+// import NavigationBar from './NavigationBar';
+
+// // TODO: If there's time, modify the publisher to be  aselect drop down so that a user can select the publisher
+// // and then add the option to select other which will bring up a drop down to allow a user to add a publisher that is not already on the list
+
+
+// class ComicsAdd extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       formValues: {
+//         title: '',
+//         volumeNumber: '',
+//         issueNumber: '',
+//         releaseDate: '', /*add this in later if I get past mvp to allow sorting by year */
+//         notes: ''
+//       }
+//     }
+//   }
+
+//   // TODO: form validation to make the publisher, and title required, also throw an error if entered publish
+//   // Date is not of the form MM-YYYY (so that I can transform it into a date using moment, will help with being able to sort)
+
+
+// handleFormChange(e) {
+//   // e.preventDefault();
+//   // let formValues = this.state.formValues;
+//   // let name = e.target.name;
+//   // let value = e.target.value;
+
+//   // formValues[name] = value;
+
+//   // this.setState({formValues});
+//   // console.log('current state is', this.state.formValues);
+//   this.props.handleFormChange(e);
+// }
+
+// handleSubmit(e) {
+//   e.preventDefault();
+//   // console.log('state when pressing submit button is', this.state)
+//   let comic = this.state.formValues;
+//   this.props.handleFormSubmit(e);
+//   // want the server to redirect to home 
+// }
+
+
+//   render() {
+//     // console.log('where are props for comic add', this.props)
+//     return (
+//       <div>
+//         <NavigationBar />
+//         <div className="addComix">
+//           <br/>
+//           <h3>Fill in the details below</h3>
+//           <br/>
+//           <form>
+//             <fieldset>
+//               <PublisherDropDown handlePublisherSelect={this.props.handlePublisherSelect} publisherParams={this.props.publisherParams}/>
+//               <br/>
+//               <TextField
+//                 name="title"
+//                 hintText="e.g. Batman"
+//                 floatingLabelText="Title"
+//                 onChange={this.handleFormChange.bind(this)}
+//                 fullWidth={true}
+//               />
+//               <br/>
+//               <TextField
+//                 name="volumeNumber"
+//                 hintText="1"
+//                 floatingLabelText="Volume Number"
+//                 onChange={this.handleFormChange.bind(this)}
+//                 fullWidth={true}
+//               />
+//               <br/>
+//               <TextField
+//                 name="issueNumber"
+//                 hintText="27"
+//                 floatingLabelText="Issue Number"
+//                 onChange={this.handleFormChange.bind(this)}
+//                 fullWidth={true}
+//               />
+//               <br/>
+//               <TextField
+//                 name="releaseDate"
+//                 hintText="MM-YYYY"
+//                 floatingLabelText="Publish Date"
+//                 onChange={this.handleFormChange.bind(this)}
+//                 fullWidth={true}
+//                 />
+//               <br/>
+//               <TextField
+//                 name="notes"
+//                 hintText="helpful notes to self about this comic go here"
+//                 floatingLabelText="Notes"
+//                 multiLine={true}
+//                 rows={2}
+//                 onChange={this.handleFormChange.bind(this)}
+//                 fullWidth={true}
+//                 />
+//                 <br/>
+//                 <br/>
+//                 <RaisedButton label="submit" onClick={e =>this.handleSubmit(e)}/> 
+//                 </fieldset>
+//               </form>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// export default ComicsAdd;
 
 /***/ }),
 /* 146 */
@@ -9777,7 +10013,7 @@ var Home = function (_Component) {
         'div',
         { className: 'wrapper' },
         _react2.default.createElement(_NavigationBar2.default, null),
-        _react2.default.createElement(_ComicsTable2.default, { comics: this.props.comics, publisherParams: this.props.publisherParams, removeComic: this.props.removeComic })
+        _react2.default.createElement(_ComicsTable2.default, { comics: this.props.comics, editComic: this.props.editComic, handleEditIconClick: this.props.handleEditIconClick, publisherParams: this.props.publisherParams, removeComic: this.props.removeComic })
       );
     }
   }]);
@@ -10808,8 +11044,17 @@ var ComicRows = function (_Component) {
       // needs to grab the id of the comic
     };
 
-    _this.handleEditClick = function () {}
-    // to do
+    _this.handleEditIconClick = function (e) {
+      var id = _this.props.comic.id;
+      console.log('in comicrows, the comic that will be updated is', _this.props.comic);
+      _this.props.editComic(id);
+    };
+
+    return _this;
+  }
+
+  _createClass(ComicRows, [{
+    key: 'render',
 
 
     //   componentWillReceiveProps(nextProps){
@@ -10825,13 +11070,6 @@ var ComicRows = function (_Component) {
     //     this.setState({publisherParams: this.props.publisherParams}, () => { console.log('what is the state after setting state in publishers componentwillmount', this.state)})
     //   }
 
-    ;
-
-    return _this;
-  }
-
-  _createClass(ComicRows, [{
-    key: 'render',
     value: function render() {
       // console.log('what are the proops being passed to ComicRow component', this.props)
       var id = this.props.comic.publisher_id;
@@ -10884,7 +11122,7 @@ var ComicRows = function (_Component) {
           _react2.default.createElement(
             _IconButton2.default,
             null,
-            _react2.default.createElement(_modeEdit2.default, { style: iconStyle })
+            _react2.default.createElement(_modeEdit2.default, { style: iconStyle, onClick: this.handleEditIconClick })
           ),
           _react2.default.createElement(
             _IconButton2.default,
@@ -11003,7 +11241,7 @@ var ComicsTable = function (_Component) {
           ),
           this.props.comics.map(function (comic, i) {
             // console.log('what is the transactions[i]', this.props.transactions[i])
-            return _react2.default.createElement(_ComicRows2.default, { key: i + 1, comic: comic, publisherParams: _this2.props.publisherParams, removeComic: _this2.props.removeComic });
+            return _react2.default.createElement(_ComicRows2.default, { key: i + 1, comic: comic, editComic: _this2.props.editComic, handleEditIconClick: _this2.props.handleEditIconClick, publisherParams: _this2.props.publisherParams, removeComic: _this2.props.removeComic });
           })
         )
       );
@@ -11162,6 +11400,8 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouterDom = __webpack_require__(57);
 
+var _reactRouterDom2 = _interopRequireDefault(_reactRouterDom);
+
 var _reactTapEventPlugin = __webpack_require__(148);
 
 var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
@@ -11199,6 +11439,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 (0, _reactTapEventPlugin2.default)();
 
+// use componentWill mount or receive props instead of didmount;
+// checkout history.push and wrapping withRouter to get the routing down
+
 var App = function (_Component) {
   _inherits(App, _Component);
 
@@ -11208,6 +11451,7 @@ var App = function (_Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
+      comic_id: '',
       comics: [],
       filterParams: {},
       formValues: {
@@ -11222,7 +11466,8 @@ var App = function (_Component) {
         primaryText: '',
         publisher_id: '',
         publishers: []
-      }
+      },
+      grabId: ''
 
     };
     _this.handlePublisherSelect = _this.handlePublisherSelect.bind(_this);
@@ -11230,7 +11475,11 @@ var App = function (_Component) {
     _this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
     _this.handleFormChange = _this.handleFormChange.bind(_this);
     _this.removeComic = _this.removeComic.bind(_this);
+    _this.editComic = _this.editComic.bind(_this);
     _this.getInitialData = _this.getInitialData.bind(_this);
+    _this.handleEditComicSaveChanges = _this.handleEditComicSaveChanges.bind(_this);
+    _this.handleEditIconClick = _this.handleEditIconClick.bind(_this);
+    _this.grabId = _this.grabId.bind(_this);
     return _this;
   }
 
@@ -11306,6 +11555,12 @@ var App = function (_Component) {
   }, {
     key: 'getFilteredComics',
     value: function getFilteredComics() {}
+  }, {
+    key: 'grabId',
+    value: function grabId() {
+      var grabId = window.location.href.split('/').reverse()[0];
+      this.setState({ grabId: grabId });
+    }
 
     //TODO: refactor addcomic so that it takes in comic and adds publisher value 
     // will be called in handleFormSubmit
@@ -11356,10 +11611,34 @@ var App = function (_Component) {
 
   }, {
     key: 'editComic',
-    value: function editComic() {}
-    // put request to server
-
-
+    value: function editComic(id) {
+      // put request to server
+      console.log('edit comic should grab this id', id);
+      // <Link to={`/comics/edit/:${id}`} activeClassName="active"></Link>
+      window.location.replace('http://localhost:9000/comics/edit/' + id);
+    }
+  }, {
+    key: 'handleEditIconClick',
+    value: function handleEditIconClick(e) {
+      this.editComic(id);
+    }
+  }, {
+    key: 'handleEditComicSaveChanges',
+    value: function handleEditComicSaveChanges(e) {
+      e.preventDefault();
+      var comic = {
+        id: this.state.grabId,
+        publisher_id: this.state.publisherParams.publisher_id,
+        title: this.state.formValues.title,
+        volumeNumber: this.state.formValues.volumeNumber,
+        issueNumber: this.state.formValues.issueNumber,
+        releaseDate: this.state.formValues.releaseDate,
+        notes: this.state.formValues.notes
+      };
+      _axios2.default.put('/comics/edit/:id', comic).then(function (response) {
+        console.log('response from serever after sending put request', response);
+      });
+    }
     // removes comic
 
   }, {
@@ -11392,6 +11671,7 @@ var App = function (_Component) {
     value: function render() {
       var _this4 = this;
 
+      console.log('the app components current state');
       return _react2.default.createElement(
         'main',
         null,
@@ -11399,12 +11679,18 @@ var App = function (_Component) {
           _reactRouterDom.Switch,
           null,
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
-              return _react2.default.createElement(_Home2.default, { comics: _this4.state.comics, publisherParams: _this4.state.publisherParams, removeComic: _this4.removeComic });
+              return _react2.default.createElement(_Home2.default, { comics: _this4.state.comics, publisherParams: _this4.state.publisherParams, removeComic: _this4.removeComic, handleEditIconClick: _this4.handleEditIconClick, editComic: _this4.editComic });
             } }),
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/comics/add', render: function render() {
               return _react2.default.createElement(_ComicsAdd2.default, { addComic: _this4.addComic, handleFormSubmit: _this4.handleFormSubmit, handleFormChange: _this4.handleFormChange, handlePublisherSelect: _this4.handlePublisherSelect, publisherParams: _this4.state.publisherParams });
             } }),
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/comics/edit', component: _ComicsEdit2.default })
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/comics/edit', render: function render() {
+              return _react2.default.createElement(_ComicsEdit2.default, { grabId: _this4.grabId, editComic: _this4.editComic, handleEditComicSaveChanges: _this4.handleEditComicSaveChanges, handleFormChange: _this4.handleFormChange, handlePublisherSelect: _this4.handlePublisherSelect, publisherParams: _this4.state.publisherParams });
+            } }),
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/comics/edit/:id', render: function render() {
+              return _react2.default.createElement(_ComicsEdit2.default, { grabId: _this4.grabId, editComic: _this4.editComic, handleEditComicSaveChanges: _this4.handleEditComicSaveChanges, handleFormChange: _this4.handleFormChange, handlePublisherSelect: _this4.handlePublisherSelect, publisherParams: _this4.state.publisherParams });
+            } }),
+          '>'
         )
       );
     }

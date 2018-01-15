@@ -13,6 +13,8 @@ class ComicsTable extends Component {
   constructor(props){
     super(props);
   }
+
+  
   
   render() {
     // console.log('what are the proops being passed to ComicRow component', this.props)
@@ -33,7 +35,7 @@ class ComicsTable extends Component {
       </div>
       {this.props.comics.map( (comic, i) => {
         // console.log('what is the transactions[i]', this.props.transactions[i])
-        return <ComicRows key={i + 1} comic={comic} publisherParams={this.props.publisherParams} removeComic={this.props.removeComic}/>;
+        return <ComicRows key={i + 1} comic={comic} editComic={this.props.editComic} handleEditIconClick={this.props.handleEditIconClick} publisherParams={this.props.publisherParams} removeComic={this.props.removeComic}/>;
       } )}
       </fieldset>
     </div>

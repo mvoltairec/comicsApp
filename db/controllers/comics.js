@@ -48,11 +48,28 @@ var db = require('../config/db');
   // })
 };
 
+const editComic = (req, res) => {
+  let query = "UPDATE comics SET title = " + db.sequelize.getQueryInterface().escape(req.body.title)
+              + ", volume_number = " + db.sequelize.getQueryInterface().escape(req.body.volumeNumber)
+              + ", issue_number = " + db.sequelize.getQueryInterface().escape(req.body.issueNumber)
+              + ", release_date = " + db.sequelize.getQueryInterface().escape(req.body.releaseDate)
+              + ", notes = " + db.sequelize.getQueryInterface().escape(req.body.notes)
+              + ", publisher_id = " + db.sequelize.getQueryInterface().escape(req.body.publisher_id)
+              + " WHERE id= " + db.sequelize.getQueryInterface().escape(req.body.id)
+              + ";"
+  db.sequelize.query(query).then( (results) => res.status(200).send(results));
+}
+
 const getAllComics = (req, res) => {
   return db.comics.findAll({})
 }
 
-
+const deleteComic = (req, res) => {
+  let query = "DELETE from comics where id=" + db.sequelize.getQueryInterface().escape(req.query.id) +";";
+  db.sequelize.query(query).then( (results)=> res.status(200).send(results));
+}
 
 exports.addComic = addComic;
 exports.getAllComics = getAllComics;
+exports.deleteComic = deleteComic;
+exports.editComic = editComic;

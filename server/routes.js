@@ -28,10 +28,6 @@ router.get('/publishers', (req,res) => {
   })
 })
 
-router.delete('/comics/:id', (req, res) => {
-  console.log('req query sent to the server', req.query);
-  res.send(req.query);
-})
 
 router.get('/comics', (req, res) => {
   comicController.getAllComics(req,res)
@@ -39,6 +35,16 @@ router.get('/comics', (req, res) => {
     console.log('results from querying for comics', results)
     res.send(results);
   });
+})
+
+router.delete('/comics/:id', (req, res) => {
+  console.log('req query sent to the server', req.query);
+  comicController.deleteComic(req,res);
+})
+
+router.put('/comics/edit/:id', (req, res) => {
+  console.log('req received from client on request to update', req.body);
+  comicController.editComic(req, res);
 })
 
 module.exports = router;

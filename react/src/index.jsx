@@ -10,8 +10,6 @@ import Home from './components/Home';
 import ComicsAdd from './components/ComicsAdd';
 import ComicsEdit from './components/ComicsEdit';
 
-
-
 injectTapEventPlugin();
 
 class App extends Component {

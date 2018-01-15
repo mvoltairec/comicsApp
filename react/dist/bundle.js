@@ -9777,7 +9777,7 @@ var Home = function (_Component) {
         'div',
         { className: 'wrapper' },
         _react2.default.createElement(_NavigationBar2.default, null),
-        _react2.default.createElement(_ComicsTable2.default, null)
+        _react2.default.createElement(_ComicsTable2.default, { comics: this.props.comics, publisherParmas: this.props.publisherParmas })
       );
     }
   }]);
@@ -10766,102 +10766,92 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _Table = __webpack_require__(283);
 
+var _ComicRows = __webpack_require__(351);
+
+var _ComicRows2 = _interopRequireDefault(_ComicRows);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.
- */
-var ComicsTable = function ComicsTable() {
-  return _react2.default.createElement(
-    _Table.Table,
-    null,
-    _react2.default.createElement(
-      _Table.TableHeader,
-      { displaySelectAll: false, adjustForCheckbox: false },
-      _react2.default.createElement(
-        _Table.TableRow,
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ComicsTable = function (_Component) {
+  _inherits(ComicsTable, _Component);
+
+  function ComicsTable(props) {
+    _classCallCheck(this, ComicsTable);
+
+    return _possibleConstructorReturn(this, (ComicsTable.__proto__ || Object.getPrototypeOf(ComicsTable)).call(this, props));
+  }
+
+  _createClass(ComicsTable, [{
+    key: 'render',
+    value: function render() {
+      console.log('what are the proops being passed to ComicRow component', this.props);
+      return _react2.default.createElement(
+        _Table.Table,
         null,
         _react2.default.createElement(
-          _Table.TableHeaderColumn,
-          null,
-          'Publisher'
-        ),
-        _react2.default.createElement(
-          _Table.TableHeaderColumn,
-          null,
-          'Title'
-        ),
-        _react2.default.createElement(
-          _Table.TableHeaderColumn,
-          null,
-          'Volume#'
-        ),
-        _react2.default.createElement(
-          _Table.TableHeaderColumn,
-          null,
-          'Issue#'
-        ),
-        _react2.default.createElement(
-          _Table.TableHeaderColumn,
-          null,
-          'Date'
-        ),
-        _react2.default.createElement(
-          _Table.TableHeaderColumn,
-          null,
-          'Notes'
-        ),
-        _react2.default.createElement(
-          _Table.TableHeaderColumn,
-          null,
-          '     '
-        )
-      )
-    ),
-    _react2.default.createElement(
-      _Table.TableBody,
-      { displayRowCheckbox: false },
-      _react2.default.createElement(
-        _Table.TableRow,
-        null,
-        _react2.default.createElement(
-          _Table.TableRowColumn,
-          null,
+          _Table.TableHeader,
+          { displaySelectAll: false, adjustForCheckbox: false },
           _react2.default.createElement(
-            'i',
-            { className: 'material-icons' },
-            'face'
+            _Table.TableRow,
+            null,
+            _react2.default.createElement(
+              _Table.TableHeaderColumn,
+              null,
+              'Publisher'
+            ),
+            _react2.default.createElement(
+              _Table.TableHeaderColumn,
+              null,
+              'Title'
+            ),
+            _react2.default.createElement(
+              _Table.TableHeaderColumn,
+              null,
+              'Volume#'
+            ),
+            _react2.default.createElement(
+              _Table.TableHeaderColumn,
+              null,
+              'Issue#'
+            ),
+            _react2.default.createElement(
+              _Table.TableHeaderColumn,
+              null,
+              'Date'
+            ),
+            _react2.default.createElement(
+              _Table.TableHeaderColumn,
+              null,
+              'Notes'
+            ),
+            _react2.default.createElement(
+              _Table.TableHeaderColumn,
+              null,
+              '     '
+            )
           )
         ),
-        _react2.default.createElement(
-          _Table.TableRowColumn,
-          null,
-          'The Incredible Hulk'
-        )
-      ),
-      _react2.default.createElement(
-        _Table.TableRow,
-        null,
-        _react2.default.createElement(
-          _Table.TableRowColumn,
-          null,
-          'DC'
-        ),
-        _react2.default.createElement(
-          _Table.TableRowColumn,
-          null,
-          'Batman'
-        )
-      )
-    )
-  );
-};
+        _react2.default.createElement(_Table.TableBody, { displayRowCheckbox: false })
+      );
+    }
+  }]);
+
+  return ComicsTable;
+}(_react.Component);
 
 exports.default = ComicsTable;
 
@@ -49087,6 +49077,119 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Table = __webpack_require__(283);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// map over Array(6) for each column in table
+var ComicRows = function (_Component) {
+  _inherits(ComicRows, _Component);
+
+  function ComicRows(props) {
+    _classCallCheck(this, ComicRows);
+
+    return _possibleConstructorReturn(this, (ComicRows.__proto__ || Object.getPrototypeOf(ComicRows)).call(this, props));
+  }
+
+  _createClass(ComicRows, [{
+    key: 'render',
+    value: function render() {
+      console.log('what are the proops being passed to ComicRow component', this.props);
+      return _react2.default.createElement(
+        'div',
+        { className: 'tableContainer' },
+        this.props.comics.map(function (row, i) {
+          return _react2.default.createElement(
+            'div',
+            { className: 'rows' },
+            _react2.default.createElement(
+              _Table.TableRow,
+              { key: i, value: i },
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                { key: i, value: i },
+                row.publisher
+              )
+            ),
+            _react2.default.createElement(
+              _Table.TableRow,
+              { key: i, value: i },
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                { key: i, value: i },
+                row.title
+              )
+            ),
+            _react2.default.createElement(
+              _Table.TableRow,
+              { key: i, value: i },
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                { key: i, value: i },
+                row.volume_number
+              )
+            ),
+            _react2.default.createElement(
+              _Table.TableRow,
+              { key: i, value: i },
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                { key: i, value: i },
+                row.issue_number
+              )
+            ),
+            _react2.default.createElement(
+              _Table.TableRow,
+              { key: i, value: i },
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                { key: i, value: i },
+                row.release_date
+              )
+            ),
+            _react2.default.createElement(
+              _Table.TableRow,
+              { key: i, value: i },
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                { key: i, value: i },
+                row.notes
+              )
+            )
+          );
+        })
+      );
+    }
+  }]);
+
+  return ComicRows;
+}(_react.Component);
+
+exports.default = ComicRows;
 
 /***/ })
 /******/ ]);

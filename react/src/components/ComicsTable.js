@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Table,
   TableBody,
@@ -7,12 +7,17 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import ComicRows from './ComicRows';
 
-/**
- * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.
- */
-const ComicsTable = () => (
-  <Table>
+class ComicsTable extends Component {
+  constructor(props){
+    super(props);
+  }
+  
+  render() {
+    console.log('what are the proops being passed to ComicRow component', this.props)
+    return (
+      <Table>
     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
       <TableRow>
         <TableHeaderColumn>Publisher</TableHeaderColumn>
@@ -25,16 +30,21 @@ const ComicsTable = () => (
       </TableRow>
     </TableHeader>
     <TableBody displayRowCheckbox={false}>
-      <TableRow>
+      {/* <TableRow>
         <TableRowColumn><i className="material-icons">face</i></TableRowColumn>
         <TableRowColumn>The Incredible Hulk</TableRowColumn>
       </TableRow>
       <TableRow>
         <TableRowColumn>DC</TableRowColumn>
         <TableRowColumn>Batman</TableRowColumn>
-      </TableRow>
+      </TableRow> */}
+    {/* <ComicsTable comics={this.props.comics} publisherParams={this.props.publisherParams} /> */}
+    {/* <ComicRows comics={this.props.comics} /> */}
+    
     </TableBody>
   </Table>
-);
+    )
+  }
+}
 
 export default ComicsTable;

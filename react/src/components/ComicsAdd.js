@@ -52,7 +52,7 @@ handleSubmit(e) {
 
 
   render() {
-    console.log('where are props for comic add', this.props)
+    // console.log('where are props for comic add', this.props)
     return (
       <div>
         <NavigationBar />

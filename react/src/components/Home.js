@@ -14,11 +14,11 @@ class Home extends Component {
   handleToggle = () => this.setState({open: !this.state.open});
 
   render() {
-    console.log('what are the proops being passed to Home component', this.props)
+    // console.log('what are the proops being passed to Home component', this.props)
     return (
         <div className='wrapper'>
           <NavigationBar />
-          <ComicsTable comics={this.props.comics} publisherParams={this.props.publisherParams}/>
+          <ComicsTable comics={this.props.comics} publisherParams={this.props.publisherParams} removeComic={this.props.removeComic}/>
         </div>
     )
   }

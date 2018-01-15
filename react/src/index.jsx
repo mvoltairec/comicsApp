@@ -37,7 +37,7 @@ class App extends Component {
     this.addComic = this.addComic.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
-    // this.getAllPublishers = this.getAllComics.bind(this);
+    this.removeComic = this.removeComic.bind(this);
     this.getInitialData = this.getInitialData.bind(this);
   }
 
@@ -51,7 +51,7 @@ class App extends Component {
 
   // will update the publisherParams 
   handlePublisherSelect(event, value) {
-    console.log('what is the state', this.state)
+    // console.log('what is the state', this.state)
     // let publisherParams = this.state;
     // let publisherParams = Object.assign({}, this.state.publisherParams); //not modifying the state directly, making a copy
     let publisherParams = this.state.publisherParams;
@@ -150,8 +150,11 @@ class App extends Component {
   }
 
   // removes comic
-  removeComic() {
+  removeComic(id) {
     // delete request to server
+    // maybe should be expecting an id as params which will be passed in from child component handler
+    console.log('delete the comic with this idfrom the db', id);
+    // console.log('also make a call to componentdid or will mount to update the state?? Or maybe that just happens as a redirect to home (to re-render the whole page, making get request??');
   }
 
   componentDidMount() {
@@ -165,7 +168,7 @@ class App extends Component {
     return (
       <main>
         <Switch>
-          <Route exact path="/" render={ ()=> <Home comics={this.state.comics} publisherParams={this.state.publisherParams}/> }/>
+          <Route exact path="/" render={ ()=> <Home comics={this.state.comics} publisherParams={this.state.publisherParams} removeComic={this.removeComic}/> }/>
           <Route exact path="/comics/add" render={ ()=> <ComicsAdd addComic={this.addComic} handleFormSubmit={this.handleFormSubmit} handleFormChange={this.handleFormChange} handlePublisherSelect={this.handlePublisherSelect} publisherParams={this.state.publisherParams}/> } />
           <Route exact path="/comics/edit" component={ComicsEdit}/>   
         </Switch>

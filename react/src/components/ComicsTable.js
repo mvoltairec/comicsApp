@@ -15,7 +15,7 @@ class ComicsTable extends Component {
   }
   
   render() {
-    console.log('what are the proops being passed to ComicRow component', this.props)
+    // console.log('what are the proops being passed to ComicRow component', this.props)
     return (
       <div className="cmx">
       <h3>List o comics</h3>
@@ -33,7 +33,7 @@ class ComicsTable extends Component {
       </div>
       {this.props.comics.map( (comic, i) => {
         // console.log('what is the transactions[i]', this.props.transactions[i])
-        return <ComicRows key={i + 1} comic={comic} publisherParams={this.props.publisherParams} />;
+        return <ComicRows key={i + 1} comic={comic} publisherParams={this.props.publisherParams} removeComic={this.props.removeComic}/>;
       } )}
       </fieldset>
     </div>

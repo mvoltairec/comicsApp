@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import IconButton from 'material-ui/IconButton';
 import Editor from 'material-ui/svg-icons/editor/mode-edit';
 import Delete from 'material-ui/svg-icons/action/delete';
 
@@ -16,10 +9,32 @@ class ComicRows extends Component {
     super(props);
   }
   
+  handleDeleteClick = () => {
+    let id = this.props.comic.id;
+    console.log('in comicrows, the comic that will be deleted is', this.props.comic)
+    this.props.removeComic(id);
+    // needs to grab the id of the comic
+  }
 
+  handleEditClick = () => {
+    // to do
+  }
+
+//   componentWillReceiveProps(nextProps){
+//     // console.log('PUBLISHER COMPONENT RECEIVED PROPS?', this.props)
+//     if(nextProps.value !== this.props.value){
+//         this.setState({publisherParams});
+//     }
+// }
+
+// // set the state to receive props from parent
+//   componentWillMount() {
+//     // console.log('what is the state before mounting', this.state)
+//     this.setState({publisherParams: this.props.publisherParams}, () => { console.log('what is the state after setting state in publishers componentwillmount', this.state)})
+//   }
   
   render() {
-    console.log('what are the proops being passed to ComicRow component', this.props)
+    // console.log('what are the proops being passed to ComicRow component', this.props)
     let id = this.props.comic.publisher_id;
     let publishers = this.props.publisherParams.publishers;
     // look for the array object
@@ -37,9 +52,16 @@ class ComicRows extends Component {
         <div className="cmx-data">{this.props.comic.title}</div>
         <div className="cmx-data">{this.props.comic.volume_number}</div>
         <div className="cmx-data">{this.props.comic.issue_number}</div>
-        <div className="cmx-data">{this.props.comic.release_date}</div>
+        <div className="cmx-data">{this.props.comic.release_Date}</div>
         <div className="cmx-data">{this.props.comic.notes}</div>
-        <div className="cmx-data"><Editor style={iconStyle} /><Delete /></div>
+        <div className="cmx-data"> 
+          <IconButton >
+            <Editor style={iconStyle} /> 
+          </IconButton>
+          <IconButton >
+            <Delete onClick={this.handleDeleteClick}/>
+          </IconButton>
+          </div>
       </div>
     )
   }

@@ -15,6 +15,6 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   } 
 );
-  console.log('Checking the publisher attributes', Object.keys(Publisher.rawAttributes));
+  // console.log('Checking the publisher attributes', Object.keys(Publisher.rawAttributes));
   return Publisher;
 };

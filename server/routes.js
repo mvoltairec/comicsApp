@@ -28,7 +28,10 @@ router.get('/publishers', (req,res) => {
   })
 })
 
-module.exports = router;
+router.delete('/comics/:id', (req, res) => {
+  console.log('req query sent to the server', req.query);
+  res.send(req.query);
+})
 
 router.get('/comics', (req, res) => {
   comicController.getAllComics(req,res)
@@ -37,3 +40,5 @@ router.get('/comics', (req, res) => {
     res.send(results);
   });
 })
+
+module.exports = router;

@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/../react/dist'));
 
 app.use('/', require('./routes'));
-
+app.use('/comics/:id', require('./routes'));
 
 
 // const getIssuesAscending = comimcsApi.URL + '/issues/?api_key=' + comimcsApi.API_KEY + '&sort=store_date:asc&format=json';
@@ -22,7 +22,7 @@ app.use('/', require('./routes'));
 // })
 
 app.use(function (req, res, next) {
-  res.status(404).send('404 not found')
+  res.status(404).send('404 not found');
 })
 
 db.sequelize.sync().then(() => {

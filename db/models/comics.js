@@ -30,6 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   } 
   );
-console.log('Checking the Comic attributes', Object.keys(Comic.rawAttributes));
+// console.log('Checking the Comic attributes', Object.keys(Comic.rawAttributes));
 return Comic;
 };

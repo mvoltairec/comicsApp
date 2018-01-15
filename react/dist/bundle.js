@@ -11368,6 +11368,16 @@ var App = function (_Component) {
       // delete request to server
       // maybe should be expecting an id as params which will be passed in from child component handler
       console.log('delete the comic with this idfrom the db', id);
+      var comics = this.state.comics;
+      var delThisResourse = comics.find(function (comic) {
+        return comic.id === id;
+      });
+      console.log('what is delThisResource', delThisResourse);
+      _axios2.default.delete('/comics/:id', {
+        params: delThisResourse
+      }).then(function (response) {
+        console.log('res', response);
+      });
       // console.log('also make a call to componentdid or will mount to update the state?? Or maybe that just happens as a redirect to home (to re-render the whole page, making get request??');
     }
   }, {

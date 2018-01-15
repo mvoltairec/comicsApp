@@ -22,12 +22,13 @@ class ComicsTable extends Component {
       <fieldset>
       <div className="cmx-table">
         <div className="cmx-header cmx-row">
-          <div className="cmx-data">Publisher</div>
-          <div className="cmx-data">Title</div>
-          <div className="cmx-data">Volume #</div>
-          <div className="cmx-data">Issue #</div>
-          <div className="cmx-data">Date</div>
-          <div className="cmx-data">Notes</div>
+          <div className="cmx-data cmx-pub">Publisher</div>
+          <div className="cmx-data cmx-title">Title</div>
+          <div className="cmx-data cmx-vol-num">Volume #</div>
+          <div className="cmx-data cmx-iss-num">Issue #</div>
+          <div className="cmx-data cmx-date">Date</div>
+          <div className="cmx-data cmx-notes">Notes</div>
+          <div className="cmx-data cmx-update">Update</div>
         </div>
       </div>
       {this.props.comics.map( (comic, i) => {

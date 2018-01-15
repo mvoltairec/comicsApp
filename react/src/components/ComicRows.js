@@ -7,7 +7,8 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
+import Editor from 'material-ui/svg-icons/editor/mode-edit';
+import Delete from 'material-ui/svg-icons/action/delete';
 
 // map over Array(6) for each column in table
 class ComicRows extends Component {
@@ -26,6 +27,10 @@ class ComicRows extends Component {
      return publisher.id === id;
     }).name;
 
+    let iconStyle = {
+      marginRight: 24,
+    };
+
     return (
       <div className="cmx-row">
         <div className="cmx-data">{publisherName}</div>
@@ -34,6 +39,7 @@ class ComicRows extends Component {
         <div className="cmx-data">{this.props.comic.issue_number}</div>
         <div className="cmx-data">{this.props.comic.release_date}</div>
         <div className="cmx-data">{this.props.comic.notes}</div>
+        <div className="cmx-data"><Editor style={iconStyle} /><Delete /></div>
       </div>
     )
   }

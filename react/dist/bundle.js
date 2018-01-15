@@ -10820,33 +10820,38 @@ var ComicsTable = function (_Component) {
               { className: 'cmx-header cmx-row' },
               _react2.default.createElement(
                 'div',
-                { className: 'cmx-data' },
+                { className: 'cmx-data cmx-pub' },
                 'Publisher'
               ),
               _react2.default.createElement(
                 'div',
-                { className: 'cmx-data' },
+                { className: 'cmx-data cmx-title' },
                 'Title'
               ),
               _react2.default.createElement(
                 'div',
-                { className: 'cmx-data' },
+                { className: 'cmx-data cmx-vol-num' },
                 'Volume #'
               ),
               _react2.default.createElement(
                 'div',
-                { className: 'cmx-data' },
+                { className: 'cmx-data cmx-iss-num' },
                 'Issue #'
               ),
               _react2.default.createElement(
                 'div',
-                { className: 'cmx-data' },
+                { className: 'cmx-data cmx-date' },
                 'Date'
               ),
               _react2.default.createElement(
                 'div',
-                { className: 'cmx-data' },
+                { className: 'cmx-data cmx-notes' },
                 'Notes'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmx-data cmx-update' },
+                'Update'
               )
             )
           ),
@@ -49106,6 +49111,14 @@ var _react2 = _interopRequireDefault(_react);
 
 var _Table = __webpack_require__(283);
 
+var _modeEdit = __webpack_require__(353);
+
+var _modeEdit2 = _interopRequireDefault(_modeEdit);
+
+var _delete = __webpack_require__(354);
+
+var _delete2 = _interopRequireDefault(_delete);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49134,6 +49147,10 @@ var ComicRows = function (_Component) {
       var publisherName = publishers.find(function (publisher) {
         return publisher.id === id;
       }).name;
+
+      var iconStyle = {
+        marginRight: 24
+      };
 
       return _react2.default.createElement(
         'div',
@@ -49167,6 +49184,12 @@ var ComicRows = function (_Component) {
           'div',
           { className: 'cmx-data' },
           this.props.comic.notes
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'cmx-data' },
+          _react2.default.createElement(_modeEdit2.default, { style: iconStyle }),
+          _react2.default.createElement(_delete2.default, null)
         )
       );
     }
@@ -49176,6 +49199,83 @@ var ComicRows = function (_Component) {
 }(_react.Component);
 
 exports.default = ComicRows;
+
+/***/ }),
+/* 352 */,
+/* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(28);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(27);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EditorModeEdit = function EditorModeEdit(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
+  );
+};
+EditorModeEdit = (0, _pure2.default)(EditorModeEdit);
+EditorModeEdit.displayName = 'EditorModeEdit';
+EditorModeEdit.muiName = 'SvgIcon';
+
+exports.default = EditorModeEdit;
+
+/***/ }),
+/* 354 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(28);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(27);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ActionDelete = function ActionDelete(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z' })
+  );
+};
+ActionDelete = (0, _pure2.default)(ActionDelete);
+ActionDelete.displayName = 'ActionDelete';
+ActionDelete.muiName = 'SvgIcon';
+
+exports.default = ActionDelete;
 
 /***/ })
 /******/ ]);

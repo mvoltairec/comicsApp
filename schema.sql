@@ -41,7 +41,6 @@ INSERT into publishers (name) VALUES ("Shonen Jump");
 INSERT into publishers (name) VALUES ("Valiant");
 INSERT into publishers (name) VALUES ("WildStorm");
 INSERT into publishers (name) VALUES ("Vertigo");
-INSERT into publishers (name) VALUES ("Other");
 
 INSERT into comics (title, volume_number, issue_number, release_date, notes, publisher_id) VALUES ("The Incredible Hulk", "vol 1", "1", "1962", NULL, "1");
 INSERT into comics (title, volume_number, issue_number, release_date, notes, publisher_id) VALUES ("The Incredible Hulk", "vol 1", "2", "1962", NULL, "1");

@@ -49128,13 +49128,20 @@ var ComicRows = function (_Component) {
     key: 'render',
     value: function render() {
       console.log('what are the proops being passed to ComicRow component', this.props);
+      var id = this.props.comic.publisher_id;
+      var publishers = this.props.publisherParams.publishers;
+      // look for the array object
+      var publisherName = publishers.find(function (publisher) {
+        return publisher.id === id;
+      }).name;
+
       return _react2.default.createElement(
         'div',
         { className: 'cmx-row' },
         _react2.default.createElement(
           'div',
           { className: 'cmx-data' },
-          this.props.comic.publisher
+          publisherName
         ),
         _react2.default.createElement(
           'div',

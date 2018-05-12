@@ -44,7 +44,7 @@ router.delete('/comics/:id', (req, res) => {
 
 router.put('/comics/edit/:id', (req, res) => {
   console.log('req received from client on request to update', req.body);
-  comicController.editComic(req, res);
+  comicController.editComic(req, res)
 })
 
 module.exports = router;
